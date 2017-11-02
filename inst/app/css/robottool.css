@@ -1,0 +1,326 @@
+ /*
+
+    Hack to fix weird jquery ui draggable 'containment' issue when page is not scrolled to top
+    See http://bugs.jqueryui.com/ticket/9315 */
+
+ @media screen and (-webkit-min-device-pixel-ratio: 0) {
+     /* chrome */
+
+     html {
+         position: relative;
+     }
+ }
+
+ @-moz-document url-prefix() {
+     /* firefox */
+
+     body {
+         position: relative;
+         overflow: auto;
+     }
+ }
+
+ @media all and (-ms-high-contrast: none),
+ (-ms-high-contrast: active) {
+     /* ie10+ */
+
+     body {
+         position: relative;
+         overflow: auto;
+     }
+ }
+
+ body {
+     display: flex;
+     display: -webkit-flex;
+     flex-direction: column;
+     -webkit-flex-direction: column;
+     min-height: 100vh;
+     font-family: Arial;
+     font-size: 12px;
+     margin-bottom: 0px;
+     margin-top: 0px;
+     background-color: Ivory;
+ }
+
+ .ui-widget {
+     font-size: 12px;
+ }
+
+ #info_dialog {
+     z-index: 5000 !important;
+ }
+
+ #mainBody {
+     display: flex;
+     display: -webkit-flex;
+     -moz-box-flex: 1;
+     -webkit-flex: 1;
+     flex: 1;
+ }
+
+ button#show {
+     width: 20px;
+     height: 20px;
+     margin-right: 0px;
+ }
+
+ button#hide,
+ button#showEditPG,
+ button#GetAllObservations,
+ button#ExportAllObservations {
+     width: 26px;
+     height: 26px;
+     margin-right: 2px;
+ }
+
+ header {
+     background: #333333;
+     margin-top: 10px;
+     padding: 0px 5px 0px 5px;
+     -webkit-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     -moz-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+ }
+
+ header h1 {
+     color: Ivory;
+     padding: 5px 5px;
+     vertical-align: middle;
+     margin-top: 5px;
+     margin-bottom: 5px;
+     text-indent: 10px;
+ }
+
+ footer {
+     margin-bottom: 10px;
+     margin-top: 10px;
+     padding: 0px 5px 0px 5px;
+     -webkit-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     -moz-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     background: #333333;
+     color: Ivory;
+ }
+
+ footer h5,
+ footer h6 {
+     text-indent: 10px;
+     margin-top: 5px;
+     margin-bottom: 5px;
+ }
+
+ .mainContent {
+     margin-top: 10px;
+     margin-left: 10px;
+     -moz-box-flex: 1;
+     -webkit-flex: 1;
+     flex: 1;
+     min-width: 0px;
+ }
+
+ .content {
+     -webkit-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     -moz-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     padding: 5px 5px;
+     background-color: White;
+ }
+
+ .mainSidebar {
+     margin-top: 10px;
+     margin-left: 5px;
+     margin-right: 5px;
+     -moz-box-flex: 0 0 260px;
+     -webkit-flex: 0 0 260px;
+     flex: 0 0 0px;
+     order: -1;
+     -webkit-order: -1;
+ }
+
+ .mainSidebarHide {
+     margin-top: 20px;
+     margin-left: 5px;
+     margin-right: 5px;
+     -moz-box-flex: 0 0 20px;
+     -webkit-flex: 0 0 20px;
+     flex: 0 0 20px;
+     display: none;
+     order: -1;
+     -webkit-order: -1;
+ }
+
+ .sidebar {
+     padding: 5px 5px;
+     -webkit-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     -moz-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     background-color: White;
+     flex: auto;
+     width: 260px;
+}
+
+ .sidebar div#header {
+     height: 27px;
+     margin-bottom: 5px;
+     margin-top: 0px;
+     padding-top: 3px;
+     padding-left: 5px;
+     padding-bottom: 2px;
+     vertical-align: middle;
+ }
+
+#sidebarPG {
+  width: 100%;
+  overflow-y: auto;
+}
+
+ .ui-accordion-header,
+ .ui-accordion-content {
+     word-wrap: break-word;
+ }
+
+ table#Observation tr.jqgrow td {
+     vertical-align: text-top;
+ }
+
+ table#Observation del {
+     background: Tomato;
+ }
+
+ table#Observation ins {
+     background: LimeGreen;
+ }
+
+ span#noValue {
+     display: block;
+     background-image: none;
+     margin-right: -2px;
+     margin-left: -2px;
+     height: auto;
+     padding: 4px;
+     color: black;
+     background: Tomato;
+     cursor: pointer;
+ }
+
+ span#value {
+     display: block;
+     background-image: none;
+     margin-right: -2px;
+     margin-left: -2px;
+     height: auto;
+     padding: 4px;
+     color: black;
+     background: LimeGreen;
+     cursor: pointer;
+ }
+
+ .spinner {
+     position: fixed;
+     top: 50%;
+     left: 50%;
+     margin-left: -50px;
+     /* half width of the spinner gif */
+
+     margin-top: -50px;
+     /* half height of the spinner gif */
+
+     text-align: center;
+     z-index: 6000;
+     overflow: auto;
+     width: 100px;
+     /* width of the spinner gif */
+
+     height: 102px;
+     /*hight of the spinner gif +2px to fix IE8 issue */
+ }
+
+ #dialogObservation,
+ #editPG {
+     display: none;
+     -webkit-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     -moz-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     padding: 5px 5px;
+     background-color: White;
+     position: absolute;
+     left: 280px;
+     top: 200px;
+ }
+
+ #alertBox {
+     -webkit-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     -moz-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.37);
+     background: tomato;
+     height: 24;
+     padding: 5px 5px;
+ }
+
+ .ui-state-highlight,
+ .ui-widget-content .ui-state-highlight,
+ .ui-widget-header .ui-state-highlight {
+     border: 1px solid #f9dd34;
+     background: #ffef8f url(images/ui-bg_glass_50_ffef8f_1x400.png) 50% 50% repeat-x;
+     color: #363636;
+ }
+
+.ui-jqgrid-titlebar {
+  height: 34px;
+  margin-bottom: 4px;
+}
+
+  .ui-jqgrid-title {
+    padding-top: 0px; top: 4px;
+  }
+
+ .ui-state-highlight.ui-state-highlight-dim {
+     background: LightGray url(images/ui-bg_glass_50_ffef8f_1x400.png) 50% 50% repeat-x;
+ }
+/*
+ .ui-front {
+     z-index: 5000 !important;
+     /* The default is 100. !important overrides the default.
+ }
+*/
+ .ui-pg-selbox {
+     width: 45px;
+ }
+
+ ul#Productgroups {
+     display: inline;
+     overflow-x: hidden;
+     overflow-y: auto;
+ }
+
+ .chart {
+     font: 10px sans-serif;
+ }
+
+ .ui-dialog {
+   z-index: 3000!important;
+ }
+
+ .axis path,
+ .axis line {
+     fill: none;
+     stroke: #000;
+     shape-rendering: crispEdges;
+ }
+
+ .line {
+     fill: none;
+     stroke: steelblue;
+     stroke-width: 1.5px;
+ }
+
+ .grid .tick {
+     stroke: lightgrey;
+     stroke-opacity: 0.7;
+     shape-rendering: crispEdges;
+ }
+
+ .grid path {
+     stroke-width: 0;
+ }

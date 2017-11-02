@@ -1,0 +1,1 @@
+ALTER TABLE Source ADD COLUMN address TEXT

@@ -1,0 +1,108 @@
+{
+  "YesNo": {
+    "Yes" : "Yes",
+    "No"  : "No",
+    "All" : "All"
+  },
+
+  "Main": {
+    "Title"             : "Pricecollection",
+    "SiteTitle"         : "Pricecollection Internet",
+    "SectionTitle"      : "Pricecollection Internet",
+    "EditGroups"        : "Edit",
+    "Completed"         : " completed",
+    "Export"            : "Export",
+    "Save"              : "Save",
+    "Cancel"            : "Cancel",
+    "Show"              : "Show",
+    "Hide"              : "Hide",
+    "OK"                : "OK",
+    "Process"           : "Processing...",
+    "Get"               : "Getting data from: ",
+    "AllRecords"    	: "All"
+  },
+
+  "Source": {
+    "Source"		      : "Id",
+    "Name"            : "Name",
+    "Address"         : "Address",
+    "Website"         : "Website",
+    "Active"          : "Active",
+    "Comment"         : "Comment",
+    "Currency"        : "Currency",
+    "LastValue"       : "Last price",
+    "NoValue"         : "No price",
+    "Action"          : "Action",
+    "GetObservation"  : "Get/Edit priceinfo respondent",
+    "EditObservation" : "Get/Edit priceinfo",
+    "Columns"         : "Columns",
+    "SelectColumns"   : "Select Columns",
+    "CopySource"      : "Copy respondent"
+  },
+
+  "SourcePath": {
+    "StepNumber"      : "#",
+    "StepType"        : "Type",
+    "StepTypeValues"  : "L:Link;C:Context;I:Input;S:Submit;A:Screenshot;CL:Click;W:Wait;M:mouseMove;D:Download",
+    "Path"            : "XPath",
+    "Parameter"       : "Parameter",
+    "Action"          : "Action",
+    "ViewPage"        : "View actual page",
+    "Context"         : "Pricecontext",
+    "ViewContext"     : "View actual pricecontext",
+    "StepNegative"    : "Stepno must be > 0"
+  },
+
+  "Observation": {
+    "Title"             : "Source:",
+    "Date"              : "Date",
+    "Action"            : "Action",
+    "Value"             : "Price",
+    "Quantity"			    : "Quantity",
+    "Comment"           : "Comment",
+    "Context"           : "Context",
+    "CopyValue"         : "Copy previous observation",
+    "ValueEmpty"        : "Please enter a price",
+    "ValueNegative"     : ": price must be >= 0",
+    "strValueNotNumeric": ": price must be numeric",
+    "GetObservations"   : "Get new priceinfo",
+    "ExportObservations": "Export prices",
+    "ValueAndContext"   : "Price and Pricecontext",
+    "MessageDelete"     : "Warning: all observations from this source will be deleted also!",
+    "NoObservation"     : "There aren't any observations to replace"
+  },
+
+  "Productgroup": {
+    "Groups"          : "Products",
+    "ProductgroupId"  : "Id",
+    "Productgroup" 	  : "Product",
+    "Description"     : "Description",
+    "Comment"         : "Comment",
+    "Action"          : "Action",
+    "MessageDelete"   : "Warning: all sources belonging to this productgroup will be deleted also!",
+    "ExportConfig"    : "Export configuration",
+    "ImportConfig"    : "Import configuration",
+    "Browse"          : "Browse...",
+    "BrowseText"      : "No configuration-file has been selected.",
+    "Close"           : "Close",
+    "Copy"            : "Copy productgroup"
+  },
+
+  "Server": {
+    "SuccessMessage"    : "Data saved",
+    "ErrorMessage"      : "Error message server: ",
+    "GetPriceError"     : "Could not retrieve PriceContext",
+    "SaveSuccess"       : "record(s) written to",
+    "ExportError"       : "Export prices failed, file =",
+    "SaveConfigError"   : "Saving configuration failed, file =",
+    "ImportSuccess"     : "Configuration imported",
+    "ImportError"       : "Productgroup # already exists",
+    "SourcesProcessed"  : "New priceinformation retrieved",
+    "SaveObsSuccess"    : "Priceinformation saved",
+    "SaveObsError"      : "Priceinformation not saved:",
+    "PriceContextEmpty" : "PriceContext is empty",
+    "NoData"            : "no data",
+    "NoObservation"     : "No observation exists for this source."
+  }
+
+}

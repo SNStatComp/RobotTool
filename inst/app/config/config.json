@@ -1,0 +1,10 @@
+{
+    "Username": "USER",
+    "Language": "nl",
+    "Locale": "nl-NL",
+    "ExportFolder": "./../export/",
+    "port": 9033,
+    "Browser": "chrome",
+    "proxy": "",
+    "proxy_auth": ""
+}

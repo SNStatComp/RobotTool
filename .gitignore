@@ -57,3 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# Mac
+.DS_Store
+
+# observation database RobotTool
+inst/server/db/observationDB.sqlite

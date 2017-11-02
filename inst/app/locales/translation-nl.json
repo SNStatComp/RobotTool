@@ -1,0 +1,109 @@
+{
+  "YesNo": {
+    "Yes" : "Ja",
+    "No"  : "Nee",
+    "All" : "Alles"
+  },
+
+  "Main": {
+    "Title"             : "Prijswaarneming",
+    "SiteTitle"         : "Prijswaarneming Internet",
+    "SectionTitle"      : "Prijswaarneming Internet",
+    "EditGroups"        : "Wijzigen",
+    "Completed"         : " gereed",
+    "Export"            : "Exporteren",
+    "Save"              : "Opslaan",
+    "Cancel"            : "Annuleren",
+    "Show"              : "Tonen",
+    "Hide"              : "Verbergen",
+    "OK"                : "OK",
+    "Process"           : "Verwerking...",
+    "Get"               : "Ophalen data van: ",
+    "AllRecords"	    : "Alle"
+
+  },
+
+  "Source": {
+    "Source"          : "Id",
+    "Name"            : "Naam",
+    "Address"         : "Adres",
+    "Website"         : "Website",
+    "Active"          : "Actief",
+    "Comment"         : "Opmerking",
+    "Currency"        : "Munteenheid",
+    "LastValue"       : "Laatste prijs",
+    "NoValue"         : "Geen prijs",
+    "Action"          : "Actie",
+    "GetObservation"  : "Ophalen/Wijzigen prijsinfo berichtgever",
+    "EditObservation" : "Ophalen/Wijzigen prijsinfo",
+    "Columns"         : "Kolommen",
+    "SelectColumns"   : "Selecteren kolommen",
+    "CopySource"      : "Kopieren berichtgever"
+  },
+
+  "SourcePath": {
+    "StepNumber"      : "#",
+    "StepType"        : "Type",
+    "StepTypeValues"  : "L:Link;C:Context;I:Invoer;S:Submit;A:Print;CL:Click;W:Wacht;M:mouseMove;D:Download",
+    "Path"            : "XPath",
+    "Parameter"       : "Parameter",
+    "Action"          : "Actie",
+    "ViewPage"        : "Bekijken actuele pagina",
+    "Context"         : "Prijscontext",
+    "ViewContext"     : "Bekijken actuele prijscontext",
+    "StepNegative"    : "Stap moet > 0 zijn"
+  },
+
+  "Observation": {
+    "Title"             : "Berichtgever:",
+    "Date"              : "Datum",
+    "Action"            : "Actie",
+    "Value"             : "Prijs",
+    "Quantity"			: "Hoeveelheid",
+    "Comment"           : "Opmerking",
+    "Context"           : "PrijsContext",
+    "CopyValue"         : "Overnemen vorige waarneming",
+    "ValueEmpty"        : "Vul een prijs in",
+    "ValueNegative"     : ": prijs moet >= 0 zijn",
+    "strValueNotNumeric": ": prijs moet numeriek zijn",
+    "GetObservations"   : "Ophalen nieuwe prijsinfo",
+    "ExportObservations": "Exporteren prijzen",
+    "ValueAndContext"   : "Prijs en Prijscontext",
+    "MessageDelete"     : "Let op: ook alle prijsgegevens van deze berichtgever worden verwijderd!",
+    "NoObservation"     : "Er is nog geen prijsinformatie die vervangen kan worden"
+  },
+
+  "Productgroup": {
+    "Groups"          : "Artikelen",
+    "ProductgroupId"  : "Artikelnr",
+    "Productgroup"    : "Artikel",
+    "Description"     : "Naam",
+  	"Comment"         :	"Omschrijving",
+    "Action"          : "Actie",
+	"MessageDelete"   : "Let op: ook alle bijbehorende berichtgevers worden verwijderd!",
+    "ExportConfig"    : "Exporteren configuratie",
+    "ImportConfig"    : "Importeren configuratie",
+    "Browse"          : "Bladeren...",
+    "BrowseText"      : "Er is geen configuratiebestand geselecteerd.",
+    "Close"           : "Sluiten",
+    "Copy"            : "Kopieren artikel"
+  },
+
+  "Server": {
+    "SuccessMessage"    : "Gegevens opgeslagen",
+    "ErrorMessage"      : "Foutmelding server:",
+    "GetPriceError"     : "Ophalen PrijsContext mislukt.",
+    "SaveSuccess"       : "record(s) geschreven naar",
+    "ExportError"       : "Exporteren prijzen mislukt, bestand =",
+    "SaveConfigError"   : "Opslaan configuratie mislukt, bestand =",
+    "ImportSuccess"     : "Configuratie geimporteerd",
+    "ImportError"       : "Artikel # bestaat al",
+    "SourcesProcessed"  : "Nieuwe prijsinformatie opgehaald",
+    "SaveObsSuccess"    : "Prijsinformatie opgeslagen",
+    "SaveObsError"      : "Prijsinformatie niet opgeslagen:",
+    "PriceContextEmpty" : "PrijsContext is leeg",
+    "NoData"            : "geen data",
+    "NoObservation"     : "Er is nog geen waarneming voor deze berichtgever."
+  }
+
+}

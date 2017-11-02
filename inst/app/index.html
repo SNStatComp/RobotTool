@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title id="title"></title>
+
+    <link rel="stylesheet" href="/css/jquery-ui.css" type="text/css" />
+    <link rel="stylesheet" href="/css/jquery.multiselect.css" type="text/css" />
+    <link rel="stylesheet" href="/css/ui.multiselect.css" type="text/css" />
+    <link rel="stylesheet" href="/css/ui.jqgrid.css" type="text/css" />
+    <link rel="stylesheet" href="/css/robottool.css" type="text/css" />
+
+    <!--[if lt IE 9]>
+  <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body id="home">
+    <header>
+        <h1 id="site_title"></h1>
+    </header>
+    <div id="mainBody">
+        <div class="mainSidebar">
+            <div class="sidebar">
+                <div class="ui-widget-header" id="header">
+                   <h3 style="margin-top:5px;float: left" id="group"></h3>
+                     <div style="float:right">
+                        <button id="hide"></button>
+                    </div>
+                     <div style="float:right">
+                        <button id="GetAllObservations"></button>
+                    </div>
+                     <div style="float:right">
+                        <button id="ExportAllObservations"></button>
+                    </div>
+                    <div style="float:left;margin-left:5px;">
+                       <button id="showEditPG"></button>
+                    </div>
+                </div>
+                <div id="sidebarPG">
+                    <ul id="Productgroups"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="mainSidebarHide">
+            <button id="show" style="float:right"></button>
+        </div>
+        <div class="mainContent">
+            <div id="editSource" class="content">
+                <table id="Source"></table>
+                <div id="pSource"></div>
+            </div>
+        </div>
+
+    </div>
+    <div id="editPG">
+        <table id="Productgroup"></table>
+        <div id="pProductgroup"></div>
+        <div id="importProductgroup"></div>
+    </div>
+
+    <div id="dialogObservation">
+        <table id="Observation"></table>
+        <div id="pObservation"></div>
+    </div>
+
+    <div id="process">
+        <select hidden id="dialogProcessObservations"></select>
+    </div>
+    <div id="spinner" class="spinner" style="display:none;">
+        <img id="img-spinner" src="/images/ajax-loader.gif" alt="Working..." />
+    </div>
+    <div id="dialogProgress" style="display:none;">
+        <div id="processPG"></div>
+        <div id="processSource"></div>
+        <div style="position:absolute;bottom:40px;height:10px;width:370px;" id="processBar"></div>
+        <div style="position:absolute;bottom:10px;height:10px;width:370px;" id="stepBar"></div>
+    </div>
+    <div class="chart" style="display:none;"></div>
+
+    <script data-main="app.js" src="js/require.js"></script>
+    <footer>
+        <h5 id="copyright"></h5>
+        <h5 id="version"></h5>
+    </footer>
+</body>
+
+</html>
