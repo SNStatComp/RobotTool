@@ -59,6 +59,3 @@ typings/
 
 # Mac
 .DS_Store
-
-# observation database RobotTool
-inst/server/db/observationDB.sqlite
