@@ -27,7 +27,7 @@ var connect = require('connect'),
   http = require('http'),
   robotDB = require('./robotDB.js'),
   initWebData = require('./webData.js').init,
-  open = require('open');
+  open = require('opn');
 
 var app = connect()
   .use(serveStatic(__dirname + '/../app'))
@@ -167,7 +167,7 @@ var config = require('./../app/config/config.json');
 server.listen(
   config.port,
   function () {
-    open('http://localhost:' + config.port, config.Browser, console.log);
+    open('http://localhost:' + config.port, {app: config.Browser});
   }
 );
 
