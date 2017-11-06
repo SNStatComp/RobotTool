@@ -1,8 +1,13 @@
 {
   "name": "Robottool",
-  "version": "3.0.0",
+  "version": "3.0.0-beta.8",
   "author": "Statistics Netherlands",
   "description": "collecting data from the Internet",
+  "license": "EUPL-1.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SNStatComp/RobotTool.git"
+  },
   "dependencies": {
     "async": "^2.1.5",
     "body-parser": "^1.17.1",
@@ -15,16 +20,19 @@
     "lodash": "^4.17.4",
     "moment": "^2.17.1",
     "mustache": "^2.3.0",
-    "open": "^0.0.5",
+    "opn": "^5.1.0",
     "qs": "^6.4.0",
     "selenium-webdriver": "^3.5.0",
     "serve-static": "^1.12.1",
     "socket.io": "^1.7.3",
     "sqlite3": "^3.1.9"
   },
-  "license": "EUPL-1.1",
   "engines": {
     "node": "^7.7.0"
+  },
+  "scripts": {
+    "start": "node inst/server/server.js",
+    "upgradeDB": "node inst/server/upgradeDB.js"
   },
   "devDependencies": {
     "eslint": "^3.17.1",
