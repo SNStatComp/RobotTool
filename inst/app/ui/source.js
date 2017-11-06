@@ -481,7 +481,7 @@ define([
       multiselect: false,
       viewrecords: true,
       gridview: true,
-      caption: 'test',
+      caption: '',
       hidegrid: false,
       editurl: "/data.html",
       subGrid: true,
