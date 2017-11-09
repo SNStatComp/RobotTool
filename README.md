@@ -3,7 +3,7 @@ Tool for detecting (price) changes on webpages.
 
 In this repo we maintain and publish an international version of the RobotTool.
 Other organisations are invited to experiment and use it.
-The tool is provided under an EUPL licence on an ‘as is’ basis and without warranties of any kind (see license file).
+The tool is provided under an EUPL license on an ‘as is’ basis and without warranties of any kind (see license file).
 Feedback is appreciated (by email or by adding an issue ticket on this repo).
 
 
