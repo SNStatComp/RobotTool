@@ -1,4 +1,4 @@
-var CountryCurrency = 
+var CountryCurrency =
 [{"CountryName":"Austria","CurrencyName":"Euro","CountryCode":"AT","CountryCode3":"AUT","CurrencyCode":"EUR","CountryLocale":"de-AT"},
 {"CountryName":"Belgium","CurrencyName":"Euro","CountryCode":"BE","CountryCode3":"BEL","CurrencyCode":"EUR","CountryLocale":"nl-BE"},
 {"CountryName":"Bulgaria","CurrencyName":"Bulgarian Lev","CountryCode":"BG","CountryCode3":"BGR","CurrencyCode":"BGN","CountryLocale":"bg"},
@@ -30,4 +30,5 @@ var CountryCurrency =
 {"CountryName":"Spain","CurrencyName":"Euro","CountryCode":"ES","CountryCode3":"ESP","CurrencyCode":"EUR","CountryLocale":"es-ES"},
 {"CountryName":"Sweden","CurrencyName":"Swedish Krona","CountryCode":"SE","CountryCode3":"SWE","CurrencyCode":"SEK","CountryLocale":"sv-SE"},
 {"CountryName":"Switzerland","CurrencyName":"Swiss Franc","CountryCode":"CH","CountryCode3":"CHE","CurrencyCode":"CHF","CountryLocale":"de-CH"},
+{"CountryName":"Turkey","CurrencyName":"Turkish Lira","CountryCode":"TR","CountryCode3":"TUR","CurrencyCode":"TL","CountryLocale":"tr-TR"},
 {"CountryName":"United Kingdom","CurrencyName":"Pound Sterling","CountryCode":"GB","CountryCode3":"GBR","CurrencyCode":"GBP","CountryLocale":"en-GB"}]
