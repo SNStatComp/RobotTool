@@ -173,9 +173,13 @@ var rasterize = function() {
 };
 
 var processScreenshot = function(url) {
+  if (!(fs.existsSync('./screenshot'))) {
+    fs.mkdirSync('./screenshot');
+  }
+
     var timeScreenshot = moment().format('YYYYMMDD-HHmmss');
     driver.getPageSource().then(function(source) {
-        fs.writeFileSync('screenshot/' + timeScreenshot + 'screenshot.html', source)
+        fs.writeFileSync('./screenshot/' + timeScreenshot + 'screenshot.html', source)
     });
     driver.takeScreenshot().then(function(base64png) {
       fs.writeFileSync('./screenshot/' + timeScreenshot + 'screenshot.png', new Buffer(base64png, 'base64'));
@@ -183,6 +187,9 @@ var processScreenshot = function(url) {
 }
 
 var downloadFile = function(observationDate, source_id, url) {
+  if (!(fs.existsSync('./downloadedFiles'))) {
+    fs.mkdirSync('./downloadedFiles');
+  }
     return downloader.fromURL(url, './downloadedFiles/' + observationDate + '-' + source_id).then(function(file) {
         return hasha.fromFileSync(file, {algorithm: 'sha256'})
     });
