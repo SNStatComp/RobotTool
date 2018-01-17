@@ -8,6 +8,7 @@ Feedback is appreciated (by email or by adding an issue ticket on this repo).
 
 
 ## Prerequisites
+- Node.js (version >= 8)
 - Google Chrome (version >= 61)
 
 ## Installation
