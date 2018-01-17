@@ -27,7 +27,31 @@ var connect = require('connect'),
   http = require('http'),
   robotDB = require('./robotDB.js'),
   initWebData = require('./webData.js').init,
-  open = require('opn');
+  open = require('opn'),
+  fs = require('fs'),
+  mkdirp = require('mkdirp'),
+  envPaths = require('env-paths'),
+  path = require('path'),
+  paths = envPaths('Robottool'),
+  config,
+  userconfig = require('./../app/config/config.json');
+
+  if (userconfig.mode === 'server') {
+    // Robottool is installed globally
+    if (!fs.existsSync(paths.config + '/config.json')) {
+      // user starts Robottool for the first time
+      mkdirp.sync(paths.config);
+      mkdirp.sync(paths.data);
+      mkdirp.sync(paths.data + '/downloadedFiles');
+      mkdirp.sync(paths.data + '/screenshot');
+      fs.copyFileSync('./inst/app/config/config.json', paths.config + '/config.json');
+      fs.copyFileSync('./inst/server/db/observationDB.sqlite', paths.data + '/observationDB.sqlite');
+    }
+    config = require(paths.config + '/config.json');
+  } else {
+    // Robottool is installed locally
+    config = require('./../app/config/config.json');
+  }
 
 var app = connect()
   .use(serveStatic(__dirname + '/../app'))
@@ -150,6 +174,9 @@ var app = connect()
               res.end(JSON.stringify(result));
             });
           break;
+        case 'getConfig':
+          res.end(JSON.stringify(config));
+          break;
         default:
           res.end('');
       }
@@ -162,15 +189,22 @@ var app = connect()
 
 var server = http.createServer(app);
 server.timeout = 0;
-var config = require('./../app/config/config.json');
 
-server.listen(
-  config.port,
-  function () {
-    open('http://localhost:' + config.port, {app: config.Browser});
-  }
-);
+if (config.port) {
+  server.listen(
+    config.port,
+    function () {
+      open('http://localhost:' + config.port, {app: config.Browser});
+    }
+  );
+} else {
+  server.listen(
+    0,
+    function () {
+      open('http://localhost:' + config.port, {app: config.Browser});
+    }
+  );
+}
 
-
-robotDB.init();
-initWebData(server);
+robotDB.init(paths, config);
+initWebData(server, config);
