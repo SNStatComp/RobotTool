@@ -31,17 +31,20 @@ var webdriver = require('selenium-webdriver'),
     db = require('./robotDB.js'),
     toDateObject = require('./utils.js').toDateObject,
     async = require('async'),
-    config = require('../app/config/config.json'),
     driver,
     cheerio = require('cheerio'),
     context = '',
     io,
+    config,
+    appdata,
     fs = require('fs'),
     moment = require('moment'),
     mustache = require('mustache'),
     capabilities = webdriver.Capabilities.chrome(),
     Downloader = require('downloader'),
     hasha = require('hasha'),
+    envPaths = require('env-paths'),
+    paths = envPaths('Robottool'),
     downloader = new Downloader();
 
 moment.locale('nl');
@@ -56,7 +59,20 @@ driver = new webdriver
     .setChromeOptions(options)
     .build();
 
-var init = function(server) {
+var init = function(server, cfg) {
+    config = cfg;
+    if (config.mode == 'server') {
+      appdata = paths.data;
+    } else {
+      appdata = '.';
+    }
+    if ((config.proxy) && (config.proxy != '')) {
+       capabilities.setProxy({
+         proxyType: "manual",
+         httpProxy: config.proxy,
+         sslProxy: config.proxy
+       })
+    }
     io = require('socket.io')(server);
 };
 
@@ -173,24 +189,23 @@ var rasterize = function() {
 };
 
 var processScreenshot = function(url) {
-  if (!(fs.existsSync('./screenshot'))) {
-    fs.mkdirSync('./screenshot');
+  if (!(fs.existsSync(appdata + '/screenshot'))) {
+    fs.mkdirSync(appdata + '/screenshot');
   }
-
     var timeScreenshot = moment().format('YYYYMMDD-HHmmss');
     driver.getPageSource().then(function(source) {
-        fs.writeFileSync('./screenshot/' + timeScreenshot + 'screenshot.html', source)
+        fs.writeFileSync(appdata + '/screenshot/' + timeScreenshot + 'screenshot.html', source)
     });
     driver.takeScreenshot().then(function(base64png) {
-      fs.writeFileSync('./screenshot/' + timeScreenshot + 'screenshot.png', new Buffer(base64png, 'base64'));
+      fs.writeFileSync(appdata + '/screenshot/' + timeScreenshot + 'screenshot.png', new Buffer(base64png, 'base64'));
     });
 }
 
 var downloadFile = function(observationDate, source_id, url) {
-  if (!(fs.existsSync('./downloadedFiles'))) {
-    fs.mkdirSync('./downloadedFiles');
+  if (!(fs.existsSync(appdata + '/downloadedFiles'))) {
+    fs.mkdirSync(appdata + '/downloadedFiles');
   }
-    return downloader.fromURL(url, './downloadedFiles/' + observationDate + '-' + source_id).then(function(file) {
+    return downloader.fromURL(url, appdata + '/downloadedFiles/' + observationDate + '-' + source_id).then(function(file) {
         return hasha.fromFileSync(file, {algorithm: 'sha256'})
     });
 }
@@ -436,8 +451,7 @@ var processProductgroup = function(args) {
 };
 
 var start = function(fun, args) {
-
-    driver.call(fun, start, args);
+  driver.call(fun, start, args);
 };
 
 module.exports.init = init;

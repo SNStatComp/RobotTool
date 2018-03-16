@@ -24,18 +24,22 @@
 
 var
   sqlite3 = require('sqlite3').verbose(),
-  db = new sqlite3.Database('./inst/server/db/observationDB.sqlite'),
   csv = require('fast-csv'),
   moment = require('moment'),
   _ = require('lodash'),
   url = require('url'),
   fs = require('fs'),
   async = require('async'),
-  userConfig = require('./../app/config/config.json');
+  db,
+  serverMessages;
 
-var serverMessages = require('./../app/locales/translation-' + userConfig.Language + '.json').Server;
-
-var init = function () {
+var init = function (paths, config) {
+  serverMessages = require('./../app/locales/translation-' + config.Language + '.json').Server;
+  if (config.mode === 'server') {
+    db = new sqlite3.Database(paths.data + '/observationDB.sqlite');
+  } else {
+    db = new sqlite3.Database('./inst/server/db/observationDB.sqlite');
+  }
   var sql = "PRAGMA foreign_keys=1";
   db.run(sql);
 };
@@ -463,7 +467,6 @@ var updateSourcePath = function (qry, callback) {
       break;
 
     case 'del':
-      console.log("nu hier");
       sql =
         'DELETE FROM SourcePath ' +
         'WHERE sourcepath_id="' + qry.id + '"';

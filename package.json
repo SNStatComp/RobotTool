@@ -1,6 +1,6 @@
 {
   "name": "Robottool",
-  "version": "3.0.0-beta.8",
+  "version": "3.0.0-rc.2",
   "author": "Statistics Netherlands",
   "description": "collecting data from the Internet",
   "license": "EUPL-1.1",
@@ -14,7 +14,8 @@
     "cheerio": "^0.22.0",
     "chromedriver": "^2.33.2",
     "connect": "^3.6.0",
-    "downloader": "file:./inst/lib/downloader-1.0.0.tgz",
+    "downloader": "file:inst/lib/downloader-1.0.1.tgz",
+    "env-paths": "^1.0.0",
     "fast-csv": "^2.4.0",
     "hasha": "^2.2.0",
     "lodash": "^4.17.4",
