@@ -4,7 +4,8 @@
     "Locale": "nl-NL",
     "ExportFolder": "./../export/",
     "port": 9033,
-    "Browser": "chrome",
+    "Browser": "c:/Program Files/Mozilla Firefox/firefox.exe",
+    "Headless": "firefox",
     "proxy": "",
     "proxy_auth": ""
 }
