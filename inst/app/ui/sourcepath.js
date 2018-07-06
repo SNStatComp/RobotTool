@@ -21,7 +21,7 @@
  */
 
 define([
-  "app/utils", "i18next.amd.withJQuery.min", "jquery.jqgrid.src"
+  "app/utils", "i18next", "jquery.jqgrid.src"
 ], function(utils, i18next) {
 
   var lastSourceId = '';
@@ -56,7 +56,7 @@ define([
 
   function getWebInfo() {
     if ($(this).attr("id") === "testPaths") {
-      $.get('/data.html', {
+      $.get('/data', {
         action: 'getWebInfo',
         source_id: $(this).attr("source_id"),
         step_no: $(this).attr("step_no"),
@@ -77,7 +77,7 @@ define([
       }, "json");
     };
     if ($(this).attr("id") === "viewPage") {
-      $.get('/data.html', {
+      $.get('/data', {
         action: 'getWebInfo',
         source_id: $(this).attr("source_id"),
         step_no: $(this).attr("step_no"),
@@ -105,7 +105,7 @@ define([
       strAllRecords = i18next.t('Main.AllRecords'),
 
       gridDefinition = {
-        url: "/data.html?action=getSourcePath&id=",
+        url: "/data?action=getSourcePath&id=",
         datatype: "json",
         jsonReader: {
           root: "data",
@@ -227,7 +227,7 @@ define([
             align: "center"
           }
         ],
-        editurl: "/data.html",
+        editurl: "/data",
         height: '100%',
         rowNum: -1,
         rowList: [
@@ -275,7 +275,7 @@ define([
       "<table id='" + subgrid_table_id +
       "' class='scroll'></table><div id='" + pager_id + "' class='scroll'></div>");
 
-    gridDefinition.url = '/data.html?action=getSourcePath&id=' + source_id +
+    gridDefinition.url = '/data?action=getSourcePath&id=' + source_id +
       '&productgroup_id=' + $('h3#Sources').attr('productgroup_id');
     gridDefinition.pager = pager_id;
 

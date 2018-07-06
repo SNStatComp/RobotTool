@@ -21,12 +21,10 @@
  */
 
 define([
-  "app/utils", "i18next.amd.withJQuery.min"
+  "app/utils", "i18next"
 ], function(utils, i18next) {
 
-  function localsetSidebar() {
-      require("app/init").setSidebar();
-    };
+  var pgDeleted;
 
   function actionFormat(cellvalue, options, rowObject) {
     var pgId = rowObject.productgroup_id;
@@ -37,13 +35,12 @@ define([
   function exportConfiguration(elt) {
     var currentPGid = $(elt).attr("productgroup_id");
     var currentPG = $(elt).attr("productgroup");
-    $.get('/data.html', {
+    $.get('/data', {
       action: 'exportConfiguration',
       productgroup_id: currentPGid,
       productgroup: currentPG,
       exportFolder: utils.getConfig().ExportFolder
     }, function(data) {
-      console.log(data);
       alert(data);
     }, 'text');
   }
@@ -98,7 +95,7 @@ define([
               id: 'btnSave',
               text: i18next.t('Main.OK'),
               click: function() {
-                $.get('/data.html', {
+                $.get('/data', {
                   action: 'importConfiguration',
                   fileName: $('#configFile').val(),
                   exportFolder: utils.getConfig().ExportFolder
@@ -134,7 +131,7 @@ define([
   function initGrid() {
 
     var gridDefinition = {
-      url: '/data.html?action=getProductgroup&element=grid',
+      url: '/data?action=getProductgroup&element=grid',
       datatype: 'json',
       jsonReader: {
         root: "data",
@@ -228,7 +225,7 @@ define([
       gridview: true,
       hidegrid: false,
       caption: ' ',
-      editurl: "/data.html",
+      editurl: "/data",
       singleSelectClickMode: '',
 
       gridComplete: function() {
@@ -300,7 +297,10 @@ define([
         recreateForm: true,
         toTop: true,
         delicon: [false],
-        cancelicon: [false]
+        cancelicon: [false],
+        afterComplete: function(response, postdata, formid) {
+          pgDeleted = true;
+        }
       },
       prmCopy: {
         caption: '',
@@ -336,7 +336,7 @@ define([
       label: i18next.t('Productgroup.Close')
     }).click(function() {
       $('div#editPG').jqmHide();
-      localsetSidebar();
+      require("app/init").setSidebar(pgDeleted);
 
       $(window).trigger('resize');
     });

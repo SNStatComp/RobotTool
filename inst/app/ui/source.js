@@ -25,8 +25,9 @@ define([
   "app/SourcePath",
   "app/Chart",
   "app/utils",
-  "i18next.amd.withJQuery.min"
-], function(Observation, SourcePath, Chart, utils, i18next) {
+  "app/summary",
+  "i18next"
+], function(Observation, SourcePath, Chart, utils, summary, i18next) {
   var
     lastsel,
     gridDefinition,
@@ -158,7 +159,7 @@ define([
           text: i18next.t('Main.Save'),
           disabled: saveDisabled,
           click: function() {
-            $.get('/data.html', {
+            $.get('/data', {
               action: 'getWebInfo',
               source_id: data.source_id,
               context: $(data.context).html(),
@@ -219,7 +220,7 @@ define([
   }
 
   function openDialogWebInfo() {
-    $.get('/data.html', {
+    $.get('/data', {
       action: 'getWebInfo',
       source_id: $(this).attr("source_id"),
       productgroup_id: $(this).attr("productgroup_id"),
@@ -240,6 +241,7 @@ define([
       strActive = i18next.t('Source.Active'),
       strComment = i18next.t('Source.Comment'),
       strCurrency = i18next.t('Source.Currency'),
+      strLastDate = i18next.t('Source.LastDate'),
       strLastValue = i18next.t('Source.LastValue'),
       strProductgroup = i18next.t('Productgroup.Productgroup'),
       strNoValue = i18next.t('Source.NoValue'),
@@ -254,7 +256,7 @@ define([
       strExportObservations = i18next.t('Observation.ExportObservations');
 
     gridDefinition = {
-      url: '/data.html',
+      url: '/data',
       datatype: 'local',
       jsonReader: {
         root: "data",
@@ -275,6 +277,7 @@ define([
         strActive,
         strComment,
         strCurrency,
+        strLastDate,
         strLastValue,
         strProductgroup,
         strAction
@@ -416,6 +419,14 @@ define([
           width: 80,
           search: false
         }, {
+          name: 'lastDate',
+          index: 'lastDate',
+          hidden: false,
+          fixed: true,
+          width: 90,
+          search: false,
+          editable: false,
+        },{
           name: 'lastValue',
           index: 'lastValue',
           formatter: observationFormat,
@@ -449,7 +460,7 @@ define([
           editable: true,
           edittype: 'select',
           editoptions: {
-            dataUrl: 'data.html?action=getProductgroup&element=select',
+            dataUrl: '/data?action=getProductgroup&element=select',
             defaultValue: getproductgroup_id
           },
           editrules: {
@@ -483,7 +494,7 @@ define([
       gridview: true,
       caption: '',
       hidegrid: false,
-      editurl: "/data.html",
+      editurl: "/data",
       subGrid: true,
       singleSelectClickMode: '',
 
@@ -497,7 +508,7 @@ define([
       },
 
       onCellSelect: function(rowid, iCol, cellcontent, e) {
-        if (iCol == 9) { //column lastValue
+        if (iCol == 10) { //column lastValue
           $('#Observation').jqGrid('setGridParam', {'datatype': 'json'});
           Observation.fillGridObservation(rowid);
           openDialogObservation();
@@ -622,7 +633,7 @@ define([
     var sourceGrid = $("#Source");
 
     require("app/init").applyUserSettings(gridDefinition, userSettings);
-    gridDefinition.url = '/data.html';
+    gridDefinition.url = '/data';
     gridDefinition.postData = {
       action: 'getSource',
       productgroup_id: productgroup_id
@@ -646,7 +657,22 @@ define([
       '<h3 id="Sources" style="float: left; margin-left: 10px; margin-top: 2px; margin-bottom: 0px; display:none"></h3>',
       '<div style="float:right"><button id="getObservation"></button></div>',
       '<div style="float:right"><button id="exportObservations"></button></div>',
-      '<div style="float:right"><button id="showScatterPlot"></button></div>');
+      '<div style="float:right"><button id="showScatterPlot"></button></div>',
+      '<div style="float:right"><button id="showSummary"></button></div>');
+
+    $('button#showSummary')
+      .button({
+        text: false,
+        icons: {
+          primary: 'ui-icon-info'
+        },
+        label: i18next.t('Summary.Label')
+      })
+      .click(function(e) {
+        e.preventDefault();
+        summary.populateGrid()
+        $('.summary').dialog({width: 845, height: 800});
+      });
 
     $('button#showScatterPlot')
       .attr('productgroup_id', productgroup_id)
@@ -677,9 +703,9 @@ define([
       .click(function(e) {
         var self = this;
         e.preventDefault();
-        $.get('/data.html', {
+        $.get('/data', {
           action: 'setObservation',
-          productgroups: [$(this).attr('productgroup_id')],
+          productgroups: [$(self).attr('productgroup_id')],
           oper: 'insert',
           user_id: utils.getConfig().Username
         }, function(data) {

@@ -26,7 +26,7 @@ var connect = require('connect'),
   qs = require('qs'),
   http = require('http'),
   robotDB = require('./robotDB.js'),
-  initWebData = require('./webData.js').init,
+  webData = require('./webData.js'),
   open = require('opn'),
   fs = require('fs'),
   mkdirp = require('mkdirp'),
@@ -34,7 +34,8 @@ var connect = require('connect'),
   path = require('path'),
   paths = envPaths('Robottool'),
   config,
-  userconfig = require('./../app/config/config.json');
+  userconfig = require('./../app/config/config.json'),
+  serverMessages = require('./../app/locales/translation-' + userconfig.Language + '.json').Server;
 
   if (userconfig.mode === 'server') {
     // Robottool is installed globally
@@ -42,8 +43,6 @@ var connect = require('connect'),
       // user starts Robottool for the first time
       mkdirp.sync(paths.config);
       mkdirp.sync(paths.data);
-      mkdirp.sync(paths.data + '/downloadedFiles');
-      mkdirp.sync(paths.data + '/screenshot');
       fs.copyFileSync('./inst/app/config/config.json', paths.config + '/config.json');
       fs.copyFileSync('./inst/server/db/observationDB.sqlite', paths.data + '/observationDB.sqlite');
     }
@@ -70,111 +69,134 @@ var app = connect()
       switch (qry.action) {
         case 'getProductgroup':
           robotDB.getProductgroup(
-            qry,
-            function (result) {
-              if (qry.element == 'select') {
-                res.end(result);
-              } else {
-                res.end(JSON.stringify(result));
-              }
-            });
+            qry).then(
+              function (result) {
+                res.writeHead(200, {'Content-Type': 'application/json'})
+                if (qry.element == 'select') {
+                  res.end(result);
+                } else {
+                  res.end(JSON.stringify(result));
+                }
+              });
           break;
         case 'updateProductgroup':
           robotDB.updateProductgroup(
-            qry,
+            qry).then(
             function (result) {
+              res.writeHead(200, {'Content-Type': 'application/json'})
               res.statusCode = result.statusCode;
               res.end(JSON.stringify(result));
             });
           break;
         case 'getSource':
           robotDB.getSource(
-            qry,
+            qry).then(
             function (result) {
+              res.writeHead(200, {'Content-Type': 'application/json'})
               res.end(JSON.stringify(result));
             });
           break;
         case 'updateSource':
           robotDB.updateSource(
-            qry,
+            qry).then(
             function (result) {
+              res.writeHead(200, {'Content-Type': 'application/json'})
               res.statusCode = result.statusCode;
               res.end(JSON.stringify(result));
             });
           break;
         case 'getSourcePath':
           robotDB.getSourcePath(
-            qry,
+            qry).then(
             function (result) {
+              res.writeHead(200, {'Content-Type': 'application/json'})
               res.end(JSON.stringify(result));
             });
           break;
         case 'updateSourcePath':
           robotDB.updateSourcePath(
-            qry,
+            qry).then(
             function (result) {
+              res.writeHead(200, {'Content-Type': 'application/json'})
               res.statusCode = result.statusCode;
               res.end(JSON.stringify(result));
             });
           break;
         case 'getObservation':
           robotDB.getObservation(
-            qry,
+            qry).then(
             function (result) {
+              res.writeHead(200, {'Content-Type': 'application/json'})
               res.end(JSON.stringify(result));
             });
           break;
         case 'updateObservation':
           robotDB.updateObservation(
-            qry,
+            qry).then(
             function (result) {
+              res.writeHead(200, {'Content-Type': 'application/json'})
               res.statusCode = result.statusCode;
               res.end(JSON.stringify(result));
             });
           break;
         case 'getWebInfo':
           robotDB.getWebInfo(
-            qry,
+            qry).then(
             function (result) {
+              res.writeHead(200, {'Content-Type': 'application/json'})
               res.end(JSON.stringify(result));
             });
           break;
         case 'exportObservations':
           robotDB.exportObservations(
-            qry,
+            qry).then(
             function (result) {
+              res.writeHead(200, {'Content-Type': 'text/plain'})
               res.end(result);
             });
           break;
         case 'setObservation':
           robotDB.setObservation(
-            qry,
+            qry).then(
             function (result) {
+              res.writeHead(200, {'Content-Type': 'text/plain'})
               res.end(result);
             });
           break;
         case 'exportConfiguration':
           robotDB.exportConfiguration(
-            qry,
+            qry).then(
             function (result) {
+              res.writeHead(200, {'Content-Type': 'text/plain'})
               res.end(result);
             });
           break;
         case 'importConfiguration':
           robotDB.importConfiguration(
-            qry,
+            qry).then(
             function (result) {
+              res.writeHead(200, {'Content-Type': 'text/plain'})
               res.end(result);
             });
           break;
         case 'chart':
           robotDB.chartData(
-            qry,
+            qry).then(
             function (result) {
+              res.writeHead(200, {'Content-Type': 'application/json'})
+              res.end(JSON.stringify(result));
+            });
+          break;
+        case 'getMetrics':
+          robotDB.getMetrics(
+            qry).then(
+            function (result) {
+              res.writeHead(200, {'Content-Type': 'application/json'})
               res.end(JSON.stringify(result));
             });
           break;
         case 'getConfig':
+          res.writeHead(200, {'Content-Type': 'application/json'})
           res.end(JSON.stringify(config));
           break;
         default:
@@ -190,21 +212,20 @@ var app = connect()
 var server = http.createServer(app);
 server.timeout = 0;
 
-if (config.port) {
-  server.listen(
-    config.port,
-    function () {
-      open('http://localhost:' + config.port, {app: config.Browser});
+server.listen(
+  config.port || 0,
+  function () {
+    if (config.Browser) {
+      open('http://localhost:' + server.address().port, {app: config.Browser})
+      .catch(function (err) {
+        console.log(serverMessages.NoBrowser + config.Browser)
+        server.close()
+      });
+    } else {
+      open('http://localhost:' + server.address().port)
     }
-  );
-} else {
-  server.listen(
-    0,
-    function () {
-      open('http://localhost:' + config.port, {app: config.Browser});
-    }
-  );
-}
+  }
+);
 
 robotDB.init(paths, config);
-initWebData(server, config);
+webData.init(server, config);

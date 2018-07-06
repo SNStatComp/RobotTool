@@ -26,8 +26,9 @@ define([
   "app/sourcepath",
   "app/source",
   "app/utils",
-  "i18next.amd.withJQuery.min"
-], function(Productgroup, Observation, SourcePath, Source, utils, i18next) {
+  "app/summary",
+  "i18next"
+], function(Productgroup, Observation, SourcePath, Source, utils, summary, i18next) {
 
   /**
    * Resizes grids when user resizes application window, etc.
@@ -49,7 +50,7 @@ define([
    *                      productgroup_id, description, comment, numberOfSources and numberOfValues
    * @return {void}
    */
-  function createPGlist(data) {
+  function createPGlist(data, pgDeleted) {
     var
       rest,
       code,
@@ -93,6 +94,9 @@ define([
       h.addClass('selected');
       $("ul#Productgroups").accordion("refresh");
       $('ul#Productgroups').accordion("option", "active", $('ul#Productgroups li').index(h));
+      if (pgDeleted) {
+        Source.populateSource(lastsel, h.attr('desc'));
+      }
     }
     $('li#PG').click(function(e) {
       var
@@ -185,6 +189,7 @@ define([
     Productgroup.initGrid();
     Source.initGrid(productgroup_id, pg_desc, userSettings);
     Observation.initGrid();
+    summary.initGrid();
   }
 
   /**
@@ -217,6 +222,10 @@ define([
           hidden: $('#Source').jqGrid('getColProp', 'currency').hidden,
           width: $('#Source').jqGrid('getColProp', 'currency').width
         },
+        lastdate: {
+          hidden: $('#Source').jqGrid('getColProp', 'lastDate').hidden,
+          width: $('#Source').jqGrid('getColProp', 'lastDate').width
+        },
         rowNum: $('#Source').jqGrid('getGridParam', 'rowNum')
       },
       Sidebar: {
@@ -229,12 +238,12 @@ define([
   /**
    * Get all productgroups from the database and populates the sidebar
    */
-  function setSidebar() {
-    $.getJSON('/data.html', {
+  function setSidebar(pgDeleted) {
+    $.getJSON('/data', {
       action: 'getProductgroup',
       element: "sidebar"
     }, function(data) {
-      createPGlist(data);
+      createPGlist(data, pgDeleted);
     });
   }
 
@@ -285,6 +294,14 @@ define([
       gridDefinition.colModel[7].hidden = false;
       gridDefinition.colModel[7].width = 80;
     }
+    if (userSettings.Source.lastdate) {
+      gridDefinition.colModel[8].hidden = userSettings.Source.lastdate.hidden;
+      gridDefinition.colModel[8].width = userSettings.Source.lastdate.width;
+    } else {
+      gridDefinition.colModel[8].hidden = false;
+      gridDefinition.colModel[8].width = 80;
+    }
+
     if (userSettings.Source.rowNum) {
       gridDefinition.rowNum = userSettings.Source.rowNum;
     }
@@ -342,7 +359,7 @@ define([
         }
       });
 
-    createPGlist(data, true);
+    createPGlist(data);
     createLinks();
 
     var pgId = $('li#PG').eq(0).attr('productgroup_id');

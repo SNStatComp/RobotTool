@@ -79,9 +79,18 @@ define([], function() {
     } else {
       locale = getCurrencyInfo(country)
       fnum = Globalize.parseFloat(n, 10, locale.CountryLocale);
+      fnum = Globalize.format(fnum, "n2", locale.CountryLocale);
     }
     return (fnum);
   };
+
+  function unformatNumber(n) {
+    if (n !== "") {
+      return Globalize.parseFloat(n)
+    } else {
+      return -1
+    }
+  }
 
   function createCurrencyPattern(country) {
     var obj = getCurrencyInfo(country),
@@ -119,6 +128,7 @@ define([], function() {
     getCurrencyInfo: getCurrencyInfo,
     formatCurrency: formatCurrency,
     unformatCurrency: unformatCurrency,
+    unformatNumber: unformatNumber,
     highlightPrice: highlightPrice
   }
 });

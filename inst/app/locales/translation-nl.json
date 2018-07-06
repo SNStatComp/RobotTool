@@ -19,7 +19,7 @@
     "OK"                : "OK",
     "Process"           : "Verwerking...",
     "Get"               : "Ophalen data van: ",
-    "AllRecords"	    : "Alle"
+    "AllRecords"	      : "Alle"
 
   },
 
@@ -31,6 +31,7 @@
     "Active"          : "Actief",
     "Comment"         : "Opmerking",
     "Currency"        : "Munteenheid",
+    "LastDate"        : "Datum",
     "LastValue"       : "Laatste prijs",
     "NoValue"         : "Geen prijs",
     "Action"          : "Actie",
@@ -59,7 +60,7 @@
     "Date"              : "Datum",
     "Action"            : "Actie",
     "Value"             : "Prijs",
-    "Quantity"			: "Hoeveelheid",
+    "Quantity"			    : "Hoeveelheid",
     "Comment"           : "Opmerking",
     "Context"           : "PrijsContext",
     "CopyValue"         : "Overnemen vorige waarneming",
@@ -80,13 +81,24 @@
     "Description"     : "Naam",
   	"Comment"         :	"Omschrijving",
     "Action"          : "Actie",
-	"MessageDelete"   : "Let op: ook alle bijbehorende berichtgevers worden verwijderd!",
+	  "MessageDelete"   : "Let op: ook alle bijbehorende berichtgevers worden verwijderd!",
     "ExportConfig"    : "Exporteren configuratie",
     "ImportConfig"    : "Importeren configuratie",
     "Browse"          : "Bladeren...",
     "BrowseText"      : "Er is geen configuratiebestand geselecteerd.",
     "Close"           : "Sluiten",
     "Copy"            : "Kopieren artikel"
+  },
+
+  "Summary": {
+    "Label"         : "Overzicht",
+    "Productgroup"  : "Artikel",
+    "Source"        : "Bron",
+    "HasPrice"      : "Prijs",
+    "NoPrice"       : "Geen prijs",
+    "NoObservation" : "Geen waarneming",
+    "Total"         : "Totaal"
+
   },
 
   "Server": {
@@ -103,7 +115,8 @@
     "SaveObsError"      : "Prijsinformatie niet opgeslagen:",
     "PriceContextEmpty" : "PrijsContext is leeg",
     "NoData"            : "geen data",
-    "NoObservation"     : "Er is nog geen waarneming voor deze berichtgever."
+    "NoObservation"     : "Er is nog geen waarneming voor deze berichtgever.",
+    "NoBrowser"         : "Kan browser niet vinden: "
   }
 
 }

@@ -49,7 +49,7 @@ define(["d3.min"], function(d3) {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.json("data.html?action=chart&id=" + id + "&productgroup_id=" + productgroup_id,
+    d3.json("data?action=chart&id=" + id + "&productgroup_id=" + productgroup_id,
       function(error, data) {
         var maxValue = data.maxValue;
         data = data.rows.filter(function(elt) {
@@ -144,7 +144,7 @@ define(["d3.min"], function(d3) {
       return d3.svg.axis().scale(y).orient("left").ticks(10);
     }
 
-    d3.json("data.html?action=chart&productgroup_id=" + productgroup_id,
+    d3.json("data?action=chart&productgroup_id=" + productgroup_id,
       function(error, data) {
         var maxValue = data.maxValue;
 

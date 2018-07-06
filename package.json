@@ -1,6 +1,6 @@
 {
   "name": "Robottool",
-  "version": "3.0.0-rc.2",
+  "version": "3.1.0-rc.1",
   "author": "Statistics Netherlands",
   "description": "collecting data from the Internet",
   "license": "EUPL-1.1",
@@ -9,24 +9,27 @@
     "url": "https://github.com/SNStatComp/RobotTool.git"
   },
   "dependencies": {
-    "async": "^2.1.5",
-    "body-parser": "^1.17.1",
+    "body-parser": "^1.18.0",
     "cheerio": "^0.22.0",
-    "chromedriver": "^2.33.2",
-    "connect": "^3.6.0",
-    "downloader": "file:inst/lib/downloader-1.0.1.tgz",
+    "chrome-finder": "^1.0.3",
+    "chromedriver": "^2.38.3",
+    "co": "^4.6.0",
+    "connect": "^3.6.6",
+    "downloader": "file:./inst/lib/downloader-1.0.1.tgz",
     "env-paths": "^1.0.0",
     "fast-csv": "^2.4.0",
-    "hasha": "^2.2.0",
-    "lodash": "^4.17.4",
-    "moment": "^2.21.0",
+    "geckodriver": "^1.11.0",
+    "hasha": "^3.0.0",
+    "i18next": "^10.6.0",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.1",
     "mustache": "^2.3.0",
-    "opn": "^5.1.0",
-    "qs": "^6.4.0",
+    "opn": "^5.3.0",
+    "qs": "^6.5.2",
     "selenium-webdriver": "^3.5.0",
-    "serve-static": "^1.12.1",
-    "socket.io": "^1.7.3",
-    "sqlite3": "^3.1.9"
+    "serve-static": "^1.13.2",
+    "socket.io": "^2.1.1",
+    "sqlite3": "^4.0.0"
   },
   "engines": {
     "node": "^7.7.0"
@@ -38,7 +41,7 @@
   "devDependencies": {
     "eslint": "^3.17.1",
     "eslint-config-standard": "^7.0.1",
-    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-react": "^6.10.0",
     "eslint-plugin-standard": "^2.1.1"
   }

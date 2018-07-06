@@ -23,11 +23,12 @@
 define([
   "app/Chart",
   "app/utils",
-  "i18next.amd.withJQuery.min"
+  "i18next"
 ], function(Chart, utils, i18next) {
 
   var contextOriginal,
     contextTmin1,
+    lastsel,
     showDiffContext = true;
 
   function localsetSidebar() {
@@ -330,7 +331,7 @@ define([
   function exportObservations() {
     var currentPG = $(this).attr("productgroup_id");
 
-    $.getJSON('/data.html', {
+    $.getJSON('/data', {
       action: 'getProductgroup',
       element: "sidebar"
     }, function(data) {
@@ -353,7 +354,7 @@ define([
    * @return {void}
    */
   function getAllObservations() {
-    $.getJSON('/data.html', {
+    $.getJSON('/data', {
       action: 'getProductgroup',
       element: "sidebar"
     }, function(data) {
@@ -434,8 +435,8 @@ define([
               params.query.productgroups = sel.ech_multiselect('getChecked').map(function() {
                 return this.value;
               }).get();
-              $.get('/data.html', params.query, function(data, txtStatus, jqXHR) {
-                if (done) {
+              $.get('/data', params.query, function(data, txtStatus, jqXHR) {
+               if (done) {
                   done(i18next.t('Main.Completed'));
                 };
               }, 'text');
@@ -527,8 +528,8 @@ define([
       editrules: {
         custom: true,
         custom_func: function(value, name) {
-          var row = $('#Observation').jqGrid('getGridParam', 'selrow');
-          console.log(row, ',', value);
+//          var row = $('#Observation').jqGrid('getGridParam', 'selrow');
+          var row = lastsel;
           if (row === strValue) {
             if (value == '') {
               return ([false, strValueEmpty]);
@@ -594,7 +595,7 @@ define([
       hidegrid: false,
       multiselect: false,
       viewrecords: true,
-      url: '/data.html',
+      url: '/data',
       datatype: "local",
       jsonReader: {
         root: "data",
@@ -631,7 +632,7 @@ define([
       sortable: true,
       cellEdit: true,
       cellsubmit: 'remote',
-      cellurl: "/data.html",
+      cellurl: "/data",
 
       loadComplete: function(data) {
         showDiffContext = true;
@@ -657,9 +658,9 @@ define([
           }
         }).click(function(e) {
           obsGrid.jqGrid('restoreCell', 1, 'Lobservation');
-          var oldValue = utils.unformatCurrency(obsGrid.jqGrid('getCol', 'Tmin1')[0], $('#Observation').attr('currency'));
+          var oldValue = utils.unformatCurrency(obsGrid.jqGrid('getCol', 'Tmin1')[0],'');
           var oldQuantity = obsGrid.jqGrid('getCell', strQuantity, 'Tmin1');
-          $.post('/data.html', {
+          $.post('/data', {
             action: 'updateObservation',
             observation_id: obsGrid.jqGrid('getGridParam', 'userData').observation_id,
             source_id: obsGrid.jqGrid('getGridParam', 'userData').source_id,
@@ -695,14 +696,16 @@ define([
           if (rowid === strValue) {
             return utils.unformatCurrency(value, $('#Observation').attr('currency'))
           } else {
-            return (value);
+            return (utils.unformatNumber(value));
           }
         }
       },
 
       beforeSaveCell: function(rowid, cellname, value, iRow, iCol) {
         if ((rowid === strValue) || (rowid === strQuantity)) {
-          return utils.unformatCurrency(value, $('#Observation').attr('currency'))
+          lastsel = rowid
+          return utils.unformatNumber(value)
+//          return utils.parseFloat(value)
         }
       },
 
@@ -721,8 +724,7 @@ define([
 
       afterRestoreCell: function(rowid, value, iRow, iCol) {
         if (rowid === strValue) {
-
-          $('#Observation').jqGrid('setCell', rowid, iCol, utils.unformatCurrency(value, $('#Observation').attr('currency')));
+          $('#Observation').jqGrid('setCell', rowid, iCol, utils.unformatCurrency(value,''));
         }
       },
 

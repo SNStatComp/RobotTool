@@ -24,7 +24,8 @@
 var libs = [
   "jquery",
   "socketio/socket.io",
-  "i18next.amd.withJQuery.min",
+  "i18next",
+  'i18nextXHRBackend.min',
   "app/init",
   "app/utils",
   "jquery-ui.min",
@@ -37,71 +38,74 @@ var libs = [
   "locales/currencies"
 ]
 
-define(libs, function($, io, i18next, init, utils) {
+define(libs, function($, io, i18next, XHR, init, utils) {
 
-  var infoText = {
-    version: 'v3.0.0-rc.2',
-    copyright: 'Copyright \u00A9 2015 - 2018 CBS, Statistics Netherlands'
-  };
+  var
+    infoText = {
+      version: 'v3.1.0-rc.1',
+      copyright: 'Copyright \u00A9 2015 - 2018 CBS, Statistics Netherlands'
+    };
 
-  /**
-   * Initializes the application
-   * @param  {Object} socket The websocket used to show the progress of the operation to the user
-   * @return {void}
-   */
+    /**
+     * Initializes the application
+     * @param  {Object} socket The websocket used to show the progress of the operation to the user
+     * @return {void}
+     */
   function initApp(socket) {
-    var files = ["i18n/grid.locale-" + i18next.lng()],
-      strProcess = i18next.t("Main.Process"),
-      strGet = i18next.t("Main.Get");
-
-    if (utils.getConfig().Locale != "en") {
-      files.push("globalize.culture." + utils.getConfig().Language);
-    }
-
-    socket.on('source', function(data) {
-      if (!utils.dialogProgress.dialog("isOpen")) {
-        utils.dialogProgress.dialog("open");
+    i18next.changeLanguage(utils.getConfig().Language,
+    function () {
+      var files = ["i18n/grid.locale-" + utils.getConfig().Language],
+        strProcess = i18next.t("Main.Process"),
+        strGet = i18next.t("Main.Get");
+      if (utils.getConfig().Locale != "en") {
+        files.push("globalize.culture." + utils.getConfig().Language);
       }
-      utils.dialogProgress.children('#processSource').text(strGet + data.source + ' - ' + data.message);
-      utils.dialogProgress.children('#processBar').progressbar({value: data.index});
-    });
 
-    socket.on('processPG', function(data) {
-      utils.dialogProgress.dialog({title: strProcess});
-      utils.dialogProgress.dialog("open");
-      utils.dialogProgress.children('#processBar').progressbar({max: data.totalSources});
-    });
-
-    socket.on('processPath', function(data) {
-      utils.dialogProgress.children('#stepBar').progressbar({max: data.totalSteps, value: data.index});
-    });
-
-    socket.on('step', function(data) {
-      utils.dialogProgress.children('#stepBar').progressbar({value: data.index});
-    });
-
-    require(files, function() {
-      Globalize.culture(utils.getConfig().Locale);
-      $.getJSON('/data.html', {
-        action: 'getProductgroup',
-        element: "sidebar"
-      }, function(data) {
-        init.initWindow(data, infoText);
+      socket.on('source', function(data) {
+        if (!utils.dialogProgress.dialog("isOpen")) {
+          utils.dialogProgress.dialog("open");
+        }
+        utils.dialogProgress.children('#processSource').text(strGet + data.source + ' - ' + data.message);
+        utils.dialogProgress.children('#processBar').progressbar({value: data.index});
       });
-    });
+
+      socket.on('processPG', function(data) {
+        utils.dialogProgress.dialog("option","title", strProcess);
+        utils.dialogProgress.dialog("open");
+        utils.dialogProgress.children('#processBar').progressbar({max: data.totalSources});
+      });
+
+      socket.on('processPath', function(data) {
+        utils.dialogProgress.children('#stepBar').progressbar({max: data.totalSteps, value: data.index});
+      });
+
+      socket.on('step', function(data) {
+        utils.dialogProgress.children('#stepBar').progressbar({value: data.index});
+      });
+
+      require(files, function() {
+        Globalize.culture(utils.getConfig().Locale);
+        $.getJSON('/data', {
+          action: 'getProductgroup',
+          element: "sidebar"
+        }, function(data) {
+          init.initWindow(data, infoText);
+        });
+      });
+    })
   }
 
   $(document).ready(function() {
     var socket = io();
 
     utils.dialogProgress = $('div#dialogProgress')
-    .dialog({
-      autoOpen: false,
-      modal: true,
-      dialogClass: 'no-close',
-      closeOnEscape: false,
-      width: 400
-    });
+      .dialog({
+        autoOpen: false,
+        modal: true,
+        dialogClass: 'no-close',
+        closeOnEscape: false,
+        width: 400
+      });
 
     $(document).ajaxError(function(event, xhr) {
       var data;
@@ -110,20 +114,24 @@ define(libs, function($, io, i18next, init, utils) {
         if ($.inArray(data.action, ["updateSource", "updateSourcePath", "updateProductgroup"]) == -1) {
           alert(data.message);
         }
-      } catch (e) {}
+      } catch (e) {
+      }
       $("#spinner").hide();
     });
 
-    $.get('/data.html?action=getConfig', function(cfg) {
-      utils.setConfig(JSON.parse(cfg));
-      i18next.init({
+    $.get('/data?action=getConfig', function(cfg) {
+      utils.setConfig(cfg);
+      i18next
+        .use(XHR)
+        .init({
         lng: cfg.Language,
         fallbackLng: "en",
-        resGetPath: '/locales/__ns__-__lng__.json'
+        backend: {
+          loadPath: '/locales/{{ns}}-{{lng}}.json'
+        }
       }, function(err, t) {
         initApp(socket);
       });
     });
   });
-
 });

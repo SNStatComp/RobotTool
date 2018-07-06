@@ -30,6 +30,7 @@
     "Active"          : "Active",
     "Comment"         : "Comment",
     "Currency"        : "Currency",
+    "LastDate"        : "Date",
     "LastValue"       : "Last price",
     "NoValue"         : "No price",
     "Action"          : "Action",
@@ -88,6 +89,16 @@
     "Copy"            : "Copy productgroup"
   },
 
+  "Summary": {
+    "Label"         : "Summary",
+    "Productgroup"  : "Product",
+    "Source"        : "Source",
+    "HasPrice"      : "Price",
+    "NoPrice"       : "No price",
+    "NoObservation" : "No observation",
+    "Total"         : "Total"
+  },
+
   "Server": {
     "SuccessMessage"    : "Data saved",
     "ErrorMessage"      : "Error message server: ",
@@ -102,7 +113,8 @@
     "SaveObsError"      : "Priceinformation not saved:",
     "PriceContextEmpty" : "PriceContext is empty",
     "NoData"            : "no data",
-    "NoObservation"     : "No observation exists for this source."
+    "NoObservation"     : "No observation exists for this source.",
+    "NoBrowser"         : " Could not find browser: "
   }
 
 }
