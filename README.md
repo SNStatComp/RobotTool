@@ -8,7 +8,7 @@ Feedback is appreciated (by email or by adding an issue ticket on this repo).
 
 
 ## Prerequisites
-- Google Chrome (version >= 61)
+- Google Chrome (version >= 61) or Mozilla Firefox (version >= 56)
 
 ## Installation
 
@@ -16,7 +16,7 @@ Feedback is appreciated (by email or by adding an issue ticket on this repo).
   $ npm install
 ```
 
-When you upgrade from a previous version of the RobotTool you have to upgrade the database.
+When you upgrade from Robottool version < 3 you have to upgrade the database.
 Copy the file observationDB.sqlite in map 'inst/server/db' from your previous version of the RobotTool to the same map in this version.
 
 Run the command:
