@@ -17,13 +17,17 @@ Feedback is appreciated (by email or by adding an issue ticket on this repo).
   $ npm install
 ```
 
-When you upgrade from Robottool version < 3 you have to upgrade the database.
-Copy the file observationDB.sqlite in map 'inst/server/db' from your previous version of the RobotTool to the same map in this version.
+## Upgrading
+
+When you upgrade from an earlier version of the RobotTool and want to re-use your existing database, copy the file observationDB.sqlite in the folder ‘inst/server/db’ to the same folder in the new version.
+When you upgrade from Robottool version < 3 you also have to upgrade the database.
 
 Run the command:
 ```bash
   $ npm upgradeDB
 ```
+
+If you have made some changes in the config file (.\inst\app\config\config.json) apply these changes also to the config file in the new version. Please don’t overwrite the new version of this file with the old version (some new config options were added).
 
 ## Usage
 
