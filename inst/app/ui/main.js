@@ -42,7 +42,7 @@ define(libs, function($, io, i18next, XHR, init, utils) {
 
   var
     infoText = {
-      version: 'v3.1.0-rc.1',
+      version: 'v3.1.0-rc.2',
       copyright: 'Copyright \u00A9 2015 - 2018 CBS, Statistics Netherlands'
     };
 
