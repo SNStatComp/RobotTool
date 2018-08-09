@@ -187,11 +187,11 @@ var processMouseMove = function* (el) {
 
 var processScreenshot = function* () {
   const timeScreenshot = moment().format('YYYYMMDD-HHmmss')
-  if (!(fs.existsSync('./screenshot'))) {
-    fs.mkdirSync('./screenshot');
+  if (!(fs.existsSync(appdata + '/screenshot'))) {
+    fs.mkdirSync(appdata + '/screenshot');
   }
   const source = yield driver.getPageSource()
-  fs.writeFileSync('./screenshot/' + timeScreenshot + 'screenshot.html', source)
+  fs.writeFileSync(appdata + '/screenshot/' + timeScreenshot + 'screenshot.html', source)
   // const url = yield driver.getCurrentUrl()
   // const chromePath = findChrome()
   // RenderPDF.generateSinglePdf(
@@ -200,14 +200,14 @@ var processScreenshot = function* () {
   //   {'chromeBinary': chromePath}
   // )
   const base64png = yield driver.takeScreenshot()
-  fs.writeFileSync('./screenshot/' + timeScreenshot + 'screenshot.png', new Buffer(base64png, 'base64'))
+  fs.writeFileSync(appdata + '/screenshot/' + timeScreenshot + 'screenshot.png', new Buffer(base64png, 'base64'))
 }
 
 var downloadFile = function* (observationDate, source_id, url) {
-  if (!(fs.existsSync('./downloadedFiles'))) {
-    fs.mkdirSync('./downloadedFiles');
+  if (!(fs.existsSync(appdata + '/downloadedFiles'))) {
+    fs.mkdirSync(appdata + '/downloadedFiles');
   }
-  var file = yield downloader.fromURL(url, './downloadedFiles/' + observationDate + '-' + source_id)
+  var file = yield downloader.fromURL(url, appdata + '/downloadedFiles/' + observationDate + '-' + source_id)
   return hasha.fromFileSync(file, {algorithm: 'sha256'})
 }
 
