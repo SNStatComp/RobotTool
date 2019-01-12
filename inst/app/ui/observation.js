@@ -21,7 +21,7 @@
  */
 
 define([
-  "app/Chart",
+  "app/chart",
   "app/utils",
   "i18next"
 ], function(Chart, utils, i18next) {
