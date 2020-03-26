@@ -1,1 +1,10 @@
-ALTER TABLE Source ADD COLUMN address TEXT
+ALTER TABLE Source ADD COLUMN  note1 TEXT;
+ALTER TABLE Source ADD COLUMN  note2 TEXT;
+ALTER TABLE Source ADD COLUMN  note3 TEXT;
+ALTER TABLE Source ADD COLUMN  note4 TEXT;
+ALTER TABLE Source ADD COLUMN  note5 TEXT;
+ALTER TABLE Source ADD COLUMN tax_code integer;
+CREATE TABLE TaxRate (tax_code integer not null unique, tax_rate real not null, tax_description text unique, primary key (tax_code));
+insert into TaxRate values(0,0,'Inclusief');
+insert into TaxRate values(1,9,'Laag');
+insert into TaxRate values(2,21,'Hoog');

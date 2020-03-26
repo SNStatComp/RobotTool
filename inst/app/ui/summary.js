@@ -42,6 +42,7 @@ define([
       colNames: [
         i18next.t('Summary.Productgroup'),
         i18next.t('Summary.Source'),
+        i18next.t('Summary.LastObsDate'),
         i18next.t('Summary.HasPrice'),
         i18next.t('Summary.NoPrice'),
         i18next.t('Summary.NoObservation')
@@ -69,6 +70,16 @@ define([
           hidedlg: true,
           summaryType: function(val, name, record) {return i18next.t('Summary.Total')}
         }, {
+          name: 'lastobsdate',
+          index: 'lastobsdate',
+          hidden: false,
+          fixed: true,
+          width: 180,
+          search: false,
+          editable: false,
+          hidedlg: true,
+          summaryType: function(val, name, record) {return record[name]}
+        },{
           name: 'hasprice',
           index: 'hasprice',
           align: 'center',
@@ -126,6 +137,7 @@ define([
     $('#metrics').jqGrid(gridDefinition)
   }
   function populateGrid() {
+    console.log('summary')
     $("#metrics").trigger("reloadGrid").focus();
   }
 

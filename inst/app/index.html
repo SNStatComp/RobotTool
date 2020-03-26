@@ -18,7 +18,7 @@
 </head>
 
 <body id="home">
-    <header>
+    <header style="display:none;">
         <h1 id="site_title"></h1>
     </header>
     <div id="mainBody">
@@ -52,6 +52,9 @@
                 <table id="Source"></table>
                 <div id="pSource"></div>
             </div>
+            <div class="taxupdate" style="display:none;">
+                <table id="taxrates"></table>
+            </div>
         </div>
 
     </div>
@@ -83,10 +86,16 @@
         <table id="metrics"></table>
     </div>
 
+
     <script data-main="app.js" src="js/require.js"></script>
     <footer>
-        <h5 id="copyright"></h5>
-        <h5 id="version"></h5>
+        <h5>
+          <div style ="text-align: center;">
+          <span id="copyright" style="float:left"></span>
+          <span id="database_user"></span>
+          <span id="version" style="float:right"></span>
+        </div>
+        </h5>
     </footer>
 </body>
 

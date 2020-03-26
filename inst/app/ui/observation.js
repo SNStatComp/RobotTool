@@ -56,6 +56,7 @@ define([
       if (str2[i] == undefined) {
         str2[i] = '';
       }
+
       str3 = diffString(str1[i], str2[i]);
       str3 = str3.replace(/<\/del><del>/g, '');
       str3 = str3.replace(/<\/ins><ins>/g, '');
@@ -101,8 +102,18 @@ define([
         if (!cellvalue || cellvalue == null) {
           cellvalue = '';
         }
+        price = $('<div>' + cellvalue + '</div>').find('#price').text().trim()
+        price = price.replace('.', ',')
+        $('#Observation_Lobservation').attr('price', price)
+        cellvalue = cellvalue.replace(/<div[^>]+>|<\/div>/gmi,'')
+
+        if ($('#Observation').attr('currency') == 'NL (EUR)'
+        && !cellvalue.includes('http')){
+          cellvalue = cellvalue.split('.').join(',')
+        }
+
         if (showDiffContext) {
-          contextDiff = utils.highlightPrice(computeDiff(contextTmin1, cellvalue), $('#Observation').attr('currency'));
+          contextDiff = utils.highlightPrice(computeDiff(contextTmin1.replace(/<div[^>]+>|<\/div>/gmi,''), cellvalue), $('#Observation').attr('currency'));
           res = '<div style="white-space: pre-wrap">' + contextDiff + '</div>';
         } else {
           res = '<div style="color:red; white-space: pre-wrap;">' + utils.highlightPrice(computeDiff(cellvalue, cellvalue), $('#Observation').attr('currency')) + '</div>';
@@ -167,6 +178,12 @@ define([
         if (!cellvalue || cellvalue == null) {
           cellvalue = '';
         }
+        else {
+            cellvalue = cellvalue.replace(/<div[^>]+>|<\/div>/gmi,'')
+           if (!cellvalue.includes('http')){
+               cellvalue = cellvalue.split('.').join(',')
+             }
+           }
         return ('<div style="white-space: pre-wrap">' + utils.highlightPrice(computeDiff(cellvalue, cellvalue), $('#Observation').attr('currency')) + '</div>');
 
       case i18next.t('Observation.Value'):
@@ -254,7 +271,14 @@ define([
       sourceName = $('#Source').jqGrid('getCell', ids, 'name'),
       currency = $('#Source').jqGrid('getCell', ids, 'currency'),
       sourceId = $('#Source').jqGrid('getCell', ids, 'source'),
-      titel = i18next.t('Observation.Title') + ' ' + sourceId + ' - ' + sourceName;
+      sourceComment = $('#Source').jqGrid('getCell', ids, 'comment'),
+      titel = i18next.t('Observation.Title') + ' ' + sourceId + ' - ' + sourceName  + '  -  ' + sourceComment;
+      if (!sourceComment) {
+         titel = i18next.t('Observation.Title') + ' ' + sourceId + ' - ' + sourceName
+         if (!sourceName) {
+            titel = i18next.t('Observation.Title') + ' ' + sourceId
+         }
+      }
 
     $("#Observation").attr('currency', currency);
     $("#Observation").jqGrid('setLabel', 'variable', i18next.t('Observation.Date'), {'text-align': 'left'});
@@ -278,19 +302,19 @@ define([
    * Create the toolbar of the Observation grid
    */
   function setToolbarObservation() {
-    $("#t_Observation")
-      .append("<div id='titel' style='float:left; margin-top: 7px; margin-left: 2px;'></div> " +
-        "<div style='float:right;margin-right: 1px; margin-top: 1px;'>" +
-        "<div id='format'>" +
-        "<button id='showChart' sourceid='' style='height: 24px;margin-right: 5px;'></button>" +
-        "<input type='checkbox' class='checkDate' id='Lobservation' value='Lobservation' checked='checked'/><label for='Lobservation'>T</label>" +
-        "<input type='checkbox' class='checkDate' id='Tmin1' value='Tmin1' checked='checked'/><label for='Tmin1'>Tmin1</label>" +
-        "<input type='checkbox' class='checkDate' id='Tmin2' value='Tmin2'/><label for='Tmin2'>Tmin2</label>" +
-        "<input type='checkbox' class='checkDate' id='Tmin3' value='Tmin3'/><label for='Tmin3'>Tmin3</label>" +
-        "<input type='checkbox' class='checkDate' id='Tmin4' value='Tmin4'/><label for='Tmin4'>Tmin4</label>" +
-        "</div>" +
-        "</div>")
-      .height('30px');
+      $("#t_Observation")
+        .append("<div id='titel' style='float:left; margin-top: 7px; margin-left: 2px; '></div> " +
+          "<div style='float:right;margin-right: 1px; margin-top: 1px; '>" +
+            "<div id='format'>" +
+              "<button id='showChart' sourceid='' style='height: 24px;margin-right: 5px;'></button>" +
+              "<input type='checkbox' class='checkDate' id='Lobservation' value='Lobservation' checked='checked'/><label for='Lobservation'>T</label>" +
+              "<input type='checkbox' class='checkDate' id='Tmin1' value='Tmin1' checked='checked'/><label for='Tmin1'>Tmin1</label>" +
+              "<input type='checkbox' class='checkDate' id='Tmin2' value='Tmin2'/><label for='Tmin2'>Tmin2</label>" +
+              "<input type='checkbox' class='checkDate' id='Tmin3' value='Tmin3'/><label for='Tmin3'>Tmin3</label>" +
+              "<input type='checkbox' class='checkDate' id='Tmin4' value='Tmin4'/><label for='Tmin4'>Tmin4</label>" +
+            "</div>" +
+          "</div>" )
+        .height('auto');
 
     $('input.checkDate')
       .checkboxradio({icon: false})
@@ -400,7 +424,7 @@ define([
         ],
         height: 'auto',
         resizable: false,
-        modal: true,
+        modal: false,
         open: function(event, ui) {
           sel.ech_multiselect({
             appendTo: process,
@@ -526,10 +550,9 @@ define([
       sortable: false,
       editable: true,
       editrules: {
-        custom: true,
-        custom_func: function(value, name) {
-//          var row = $('#Observation').jqGrid('getGridParam', 'selrow');
-          var row = lastsel;
+        custom: function(options) {
+          value = options.newValue;
+          var row = options.rowid;
           if (row === strValue) {
             if (value == '') {
               return ([false, strValueEmpty]);
@@ -644,6 +667,9 @@ define([
           contextOriginal = '';
         }
         contextTmin1 = data.data[4].Tmin1;
+        if (!contextTmin1.includes('http')) {
+           contextTmin1 = contextTmin1.split('.').join(',')
+         }
         if (!contextTmin1 || (contextTmin1 == null)) {
           contextTmin1 = '';
         }
@@ -658,8 +684,16 @@ define([
           }
         }).click(function(e) {
           obsGrid.jqGrid('restoreCell', 1, 'Lobservation');
-          var oldValue = utils.unformatCurrency(obsGrid.jqGrid('getCol', 'Tmin1')[0],'');
+          newValue = $('#Observation_Lobservation').attr('price')
+          if (newValue) {
+            var oldValue = utils.unformatCurrency(newValue,'');
+          } else {
+            var oldValue = utils.unformatCurrency(obsGrid.jqGrid('getCol', 'Tmin1')[0],'');
+          }
           var oldQuantity = obsGrid.jqGrid('getCell', strQuantity, 'Tmin1');
+		  if (!oldQuantity) {
+            oldQuantity = -1
+          };
           $.post('/data', {
             action: 'updateObservation',
             observation_id: obsGrid.jqGrid('getGridParam', 'userData').observation_id,
@@ -690,6 +724,9 @@ define([
       },
 
       formatCell: function(rowid, cellname, value, iRow, iCol) {
+        if (rowid === strComment) {
+          return value;
+        } else {
         if (((rowid === strValue) || (rowid === strQuantity)) && (value === '-1')) {
           return ('');
         } else {
@@ -699,6 +736,7 @@ define([
             return (utils.unformatNumber(value));
           }
         }
+      }
       },
 
       beforeSaveCell: function(rowid, cellname, value, iRow, iCol) {

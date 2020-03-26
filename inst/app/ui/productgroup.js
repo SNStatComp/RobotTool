@@ -191,6 +191,7 @@ define([
           name: 'comment',
           index: 'comment',
           editable: true,
+          edittype: "textarea",
           editoptions: {
             size: 40
           },

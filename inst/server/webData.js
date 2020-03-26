@@ -166,6 +166,13 @@ var processContext = function* (el) {
   addContext(text);
 }
 
+var processPrice = function* (el) {
+  const html = yield el.getAttribute('outerHTML')
+  const $ = cheerio.load(html, {normalizeWhitespace: true});
+  const text = $.root().text();
+  addContext('<div id="price">' + text + '</div>');
+}
+
 var processSubmit = function* (el, path, parameter) {
   addContext('[' + parameter + ']')
   yield el.sendKeys(parameter);
@@ -328,6 +335,9 @@ var nextUrl = function* (sourcePath, source_id, index) {
       case 'C':
         yield* processContext(el);
         break;
+      case 'P':
+          yield* processPrice(el);
+          break;
       case 'M':
         yield* processMouseMove(el);
         break;

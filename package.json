@@ -1,6 +1,6 @@
 {
   "name": "Robottool",
-  "version": "3.1.0-rc.2",
+  "version": "4.0.0",
   "author": "Statistics Netherlands",
   "description": "collecting data from the Internet",
   "license": "EUPL-1.1",
@@ -18,10 +18,10 @@
     "downloader": "file:./inst/lib/downloader-1.0.1.tgz",
     "env-paths": "^1.0.0",
     "fast-csv": "^2.4.0",
-    "geckodriver": "^1.11.0",
+    "geckodriver": "^1.19.1",
     "hasha": "^3.0.0",
     "i18next": "^10.6.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.15",
     "moment": "^2.22.1",
     "mustache": "^2.3.0",
     "opn": "^5.3.0",
@@ -29,10 +29,10 @@
     "selenium-webdriver": "^3.5.0",
     "serve-static": "^1.13.2",
     "socket.io": "^2.1.1",
-    "sqlite3": "^4.0.0"
+    "sqlite3": "^4.0.9"
   },
   "engines": {
-    "node": "^7.7.0"
+    "node": ">11.0.0"
   },
   "scripts": {
     "start": "node inst/server/server.js",

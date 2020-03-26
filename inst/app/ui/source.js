@@ -26,8 +26,9 @@ define([
   "app/Chart",
   "app/utils",
   "app/summary",
+  "app/taxupdate",
   "i18next"
-], function(Observation, SourcePath, Chart, utils, summary, i18next) {
+], function(Observation, SourcePath, Chart, utils, summary, taxupdate,i18next) {
   var
     lastsel,
     gridDefinition,
@@ -95,9 +96,15 @@ define([
   }
 
   function actionFormat(cellvalue, options, rowObject) {
+    var xp = rowObject.Xpath.toString(), xptekst = ''; disabled = '';
+    if (rowObject.Xpath == 0) {
+      xptekst = 'Geen Xpath aanwezig voor '
+      disabled = 'disabled'
+    }
     return (
       '<button id="action" style="width:100%" source_id="' + rowObject.source_id +
-      '" productgroup_id="' + rowObject.productgroupId + '">' +
+      '" productgroup_id="' + rowObject.productgroupId + '"' + disabled + '>' +
+      xptekst  +
       i18next.t('Source.GetObservation') + ' ' +
       rowObject.source_id + ' ...</button>');
   }
@@ -138,17 +145,33 @@ define([
       EditObservation,
       selRowId = $("#Source").jqGrid('getGridParam', 'selrow'),
       currency = $("#Source").jqGrid('getCell', selRowId, 'currency'),
+      //context = utils.highlightPrice(data.context.split('.').join(','), currency),
       context = utils.highlightPrice(data.context, currency),
       dialog;
-
+   if (!context.includes('http')) {
+        context = context.split('.').join(',')
+      };
+    //console.log('dialoog')
+    //console.log(context)
     utils.dialogProgress.dialog('close');
 
     if (data.last_obs_date != null) {
-      EditObservation = i18next.t('Source.EditObservation') +  ' ' + data.last_obs_date;
+
+     EditObservation = i18next.t('Source.EditObservation') +  ' ' + data.last_obs_date;
+
       saveDisabled = false;
     } else {
-      context += '<div id="alertBox">' + i18next.t('Observation.NoObservation') + '</div>';
+    //  context += '<div id="alertBox">' + i18next.t('Observation.NoObservation') + '</div>';
+       //var
+      //  ddd = new Date(),
+        //ttt = ddd.getTime();
+
+       var todayDate  = new Date().toISOString().slice(0,10);
+       var timeString = new Date().toString().slice(16,24);
+       EditObservation = i18next.t('Source.EditObservation') + ' ' + todayDate + ' ' + timeString;
+       saveDisabled = false;
     }
+
     dialog = $('<div></div>').html(context).dialog({
       autoOpen: false,
       title: EditObservation,
@@ -229,10 +252,13 @@ define([
     }, processObservation, "json");
   }
 
-  function initGrid(productgroup_id, pg_desc, userSettings) {
+  function initGrid(productgroup_id, pg_desc,  userSettings) {
     var strAll = i18next.t("YesNo.All"),
       strYes = i18next.t("YesNo.Yes"),
       strNo = i18next.t("YesNo.No"),
+      strIncl = i18next.t("YesNo.Incl"),
+      strHigh = i18next.t("YesNo.High"),
+      strLow = i18next.t("YesNo.Low"),
 
       strSource = i18next.t('Source.Source'),
       strName = i18next.t('Source.Name'),
@@ -240,6 +266,13 @@ define([
       strWebsite = i18next.t('Source.Website'),
       strActive = i18next.t('Source.Active'),
       strComment = i18next.t('Source.Comment'),
+      strXpath = i18next.t('Source.Xpath'),
+      strNote1 = i18next.t('Source.Note1'),
+      strNote2 = i18next.t('Source.Note2'),
+      strNote3 = i18next.t('Source.Note3'),
+      strNote4 = i18next.t('Source.Note4'),
+      strNote5 = i18next.t('Source.Note5'),
+      strTaxCode = i18next.t('Source.TaxCode'),
       strCurrency = i18next.t('Source.Currency'),
       strLastDate = i18next.t('Source.LastDate'),
       strLastValue = i18next.t('Source.LastValue'),
@@ -276,11 +309,20 @@ define([
         strWebsite,
         strActive,
         strComment,
+        strNote1,
+        strNote2,
+        strNote3,
+        strNote4,
+        strNote5,
+        strXpath,
+        strTaxCode,
         strCurrency,
         strLastDate,
         strLastValue,
         strProductgroup,
         strAction
+
+
       ],
       colModel: [
         {
@@ -329,7 +371,7 @@ define([
             size: 42
           },
           formatter: 'link',
-          fixed: false,
+          fixed: true,
           formatoptions: {
             target: '_blank'
           },
@@ -387,9 +429,122 @@ define([
           editrules: {
             edithidden: true
           },
+          fixed: false,
+          search: false
+        }, {
+          name: 'note1',
+          index: 'note1',
+          editable: true,
+          hidden: true,
+          edittype: "textarea",
+          editoptions: {
+            rows: "2",
+            cols: "40"
+          },
+          editrules: {
+            edithidden: true
+          },
           fixed: true,
           search: false
         }, {
+          name: 'note2',
+          index: 'note2',
+          editable: true,
+          edittype: "textarea",
+          editoptions: {
+            rows: "2",
+            cols: "40"
+          },
+          editrules: {
+            edithidden: true
+          },
+          fixed: true,
+        //  width: 60,
+          search: false
+        },  {
+          name: 'note3',
+          index: 'note3',
+          editable: true,
+          edittype: "textarea",
+          editoptions: {
+            rows: "2",
+            cols: "40"
+          },
+          editrules: {
+            edithidden: true
+          },
+          fixed: true,
+          search: false
+        },
+         {
+          name: 'note4',
+          index: 'note4',
+          editable: true,
+          edittype: "textarea",
+          editoptions: {
+            rows: "2",
+            cols: "40"
+          },
+          editrules: {
+            edithidden: true
+          },
+          fixed: true,
+          search: false
+        }, {
+          name: 'note5',
+          index: 'note5',
+          editable: true,
+          edittype: "textarea",
+          editoptions: {
+            rows: "2",
+            cols: "40"
+          },
+          editrules: {
+            edithidden: true
+          },
+          fixed: true,
+          search: false
+        },
+         {
+          name: 'Xpath',
+          index: 'Xpath',
+          width: 50,
+          editable: false,
+          edittype: "text",
+          align: 'center',
+          fixed: true,
+          search: false
+        }, {
+          name: 'TaxCode',
+          index: 'TaxCode',
+          editable: true,
+          width: 50,
+          align: 'center',
+          formatter : 'select',
+          formatoptions : {
+            value: {
+            2: 'H',
+            1: 'L',
+            0: 'I'
+           },
+
+          },
+          edittype: "select",
+          editoptions: {
+            value: {
+              2: strHigh,
+              1: strLow,
+              0: strIncl
+            },
+            defaultValue: strIncl
+          },
+          editrules: {
+            edithidden: true
+          },
+          fixed: true,
+          search: false
+        },
+        {
           name: 'currency',
           index: 'currency',
           editable: true,
@@ -469,7 +624,7 @@ define([
         }, {
           name: 'act',
           index: 'act',
-          width: 40,
+          width: 45,
           fixed: true,
           align: 'center',
           editable: false,
@@ -508,7 +663,7 @@ define([
       },
 
       onCellSelect: function(rowid, iCol, cellcontent, e) {
-        if (iCol == 10) { //column lastValue
+        if (iCol == 17) { //column lastValue
           $('#Observation').jqGrid('setGridParam', {'datatype': 'json'});
           Observation.fillGridObservation(rowid);
           openDialogObservation();
@@ -658,7 +813,41 @@ define([
       '<div style="float:right"><button id="getObservation"></button></div>',
       '<div style="float:right"><button id="exportObservations"></button></div>',
       '<div style="float:right"><button id="showScatterPlot"></button></div>',
-      '<div style="float:right"><button id="showSummary"></button></div>');
+      '<div style="float:right"><button id="showSummary"></button></div>',
+      '<div style="float:right"><button id="updateTax"></button></div>');
+
+    $('button#updateTax')
+        .button({
+          text: false,
+          icons: {
+            primary: 'ui-icon-grid_updatetax'
+          },
+          label: i18next.t('Source.TaxUpdate')
+        })
+        .click(function($e) {
+          $e.preventDefault();
+           $('.taxupdate')
+            .jqm({
+              modal: true,
+              toTop: true,
+              overlayClass: 'ui-widget-overlay',
+              overlay: 30,
+              closeOnEscape: true,
+              zIndex: 5000
+            })
+            .jqmShow()
+            .draggable({
+               containment: [0, 0, 2000, 2000]
+           })
+  //         .dialog({width: 420, height: 200});
+        });
+//         .click(function(e) {
+//           e.preventDefault();
+// /*          taxupdate.populateGrid()
+//           $('.taxupdate').dialog({width: 300, height: 200}); */
+//           taxupdate.populateGrid()
+//           $('.taxupdate').dialog({width: 400, height: 200});
+//       });
 
     $('button#showSummary')
       .button({
@@ -671,7 +860,7 @@ define([
       .click(function(e) {
         e.preventDefault();
         summary.populateGrid()
-        $('.summary').dialog({width: 845, height: 800});
+        $('.summary').dialog({width: 1100, height: 800});
       });
 
     $('button#showScatterPlot')

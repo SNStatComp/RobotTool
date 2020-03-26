@@ -27,8 +27,9 @@ define([
   "app/source",
   "app/utils",
   "app/summary",
+  "app/taxupdate",
   "i18next"
-], function(Productgroup, Observation, SourcePath, Source, utils, summary, i18next) {
+], function(Productgroup, Observation, SourcePath, Source, utils, summary, taxupdate,i18next) {
 
   /**
    * Resizes grids when user resizes application window, etc.
@@ -75,10 +76,16 @@ define([
         }
       };
 
+      if (!value.comment){
+        productInfo = value.description;}
+      else {
+        productInfo = value.description + '  -  ' + value.comment.substr(0, 75);
+       }
+
       $('ul#Productgroups')
         .append(
           '<li id="PG" productgroup_id="' + value.productgroup_id +
-          '" desc="' + value.description + '"><div class="desc">' + desc + '</div></li>');
+          '" desc="' + productInfo + '"><div class="desc">' + desc + '</div></li>');
 
       $('ul#Productgroups li')
         .last()
@@ -187,9 +194,10 @@ define([
    */
   function initGrids(productgroup_id, pg_desc, userSettings) {
     Productgroup.initGrid();
-    Source.initGrid(productgroup_id, pg_desc, userSettings);
+    Source.initGrid(productgroup_id, pg_desc,  userSettings);
     Observation.initGrid();
     summary.initGrid();
+    taxupdate.initGrid();
   }
 
   /**
@@ -199,6 +207,10 @@ define([
   function saveUserSettings() {
     var userSettings = {
       Source: {
+        source: {
+          hidden: $('#Source').jqGrid('getColProp', 'source').hidden,
+          width: $('#Source').jqGrid('getColProp', 'source').width
+        },
         name: {
           hidden: $('#Source').jqGrid('getColProp', 'name').hidden,
           width: $('#Source').jqGrid('getColProp', 'name').width
@@ -217,6 +229,34 @@ define([
         comment: {
           hidden: $('#Source').jqGrid('getColProp', 'comment').hidden,
           width: $('#Source').jqGrid('getColProp', 'comment').width
+        },
+        note1: {
+          hidden: $('#Source').jqGrid('getColProp', 'note1').hidden,
+          width: $('#Source').jqGrid('getColProp', 'note1').width
+        },
+        note2: {
+          hidden: $('#Source').jqGrid('getColProp', 'note2').hidden,
+          width: $('#Source').jqGrid('getColProp', 'note2').width
+        },
+        note3: {
+          hidden: $('#Source').jqGrid('getColProp', 'note3').hidden,
+          width: $('#Source').jqGrid('getColProp', 'note3').width
+        },
+        note4: {
+          hidden: $('#Source').jqGrid('getColProp', 'note4').hidden,
+          width: $('#Source').jqGrid('getColProp', 'note4').width
+        },
+        note5: {
+          hidden: $('#Source').jqGrid('getColProp', 'note5').hidden,
+          width: $('#Source').jqGrid('getColProp', 'note5').width
+        },
+        Xpath: {
+          hidden: $('#Source').jqGrid('getColProp', 'Xpath').hidden,
+          width: $('#Source').jqGrid('getColProp', 'Xpath').width
+        },
+        TaxCode: {
+          hidden: $('#Source').jqGrid('getColProp', 'TaxCode').hidden,
+          width: $('#Source').jqGrid('getColProp', 'TaxCode').width
         },
         currency: {
           hidden: $('#Source').jqGrid('getColProp', 'currency').hidden,
@@ -254,6 +294,13 @@ define([
    * @return {void}
    */
   function applyUserSettings(gridDefinition, userSettings) {
+    if (userSettings.Source.source) {
+      gridDefinition.colModel[1].hidden = userSettings.Source.source.hidden;
+      gridDefinition.colModel[1].width = userSettings.Source.source.width;
+    } else {
+      gridDefinition.colModel[1].hidden = false;
+      gridDefinition.colModel[1].width = 60;
+    }
     if (userSettings.Source.name) {
       gridDefinition.colModel[2].hidden = userSettings.Source.name.hidden;
       gridDefinition.colModel[2].width = userSettings.Source.name.width;
@@ -287,19 +334,68 @@ define([
       gridDefinition.colModel[6].hidden = false;
       gridDefinition.colModel[6].width = 85;
     }
-    if (userSettings.Source.currency) {
-      gridDefinition.colModel[7].hidden = userSettings.Source.currency.hidden;
-      gridDefinition.colModel[7].width = userSettings.Source.currency.width;
+    if (userSettings.Source.note1) {
+      gridDefinition.colModel[7].hidden = userSettings.Source.note1.hidden;
+      gridDefinition.colModel[7].width = userSettings.Source.note1.width;
     } else {
       gridDefinition.colModel[7].hidden = false;
-      gridDefinition.colModel[7].width = 80;
+      gridDefinition.colModel[7].width = 85;
     }
-    if (userSettings.Source.lastdate) {
-      gridDefinition.colModel[8].hidden = userSettings.Source.lastdate.hidden;
-      gridDefinition.colModel[8].width = userSettings.Source.lastdate.width;
+    if (userSettings.Source.note2) {
+      gridDefinition.colModel[8].hidden = userSettings.Source.note2.hidden;
+      gridDefinition.colModel[8].width = userSettings.Source.note2.width;
     } else {
       gridDefinition.colModel[8].hidden = false;
-      gridDefinition.colModel[8].width = 80;
+      gridDefinition.colModel[8].width = 85;
+    }
+    if (userSettings.Source.note3) {
+      gridDefinition.colModel[9].hidden = userSettings.Source.note3.hidden;
+      gridDefinition.colModel[9].width = userSettings.Source.note3.width;
+    } else {
+      gridDefinition.colModel[9].hidden = false;
+      gridDefinition.colModel[9].width = 85;
+    }
+    if (userSettings.Source.note4) {
+      gridDefinition.colModel[10].hidden = userSettings.Source.note4.hidden;
+      gridDefinition.colModel[10].width = userSettings.Source.note4.width;
+    } else {
+      gridDefinition.colModel[10].hidden = false;
+      gridDefinition.colModel[10].width = 85;
+    }
+    if (userSettings.Source.note5) {
+      gridDefinition.colModel[11].hidden = userSettings.Source.note5.hidden;
+      gridDefinition.colModel[11].width = userSettings.Source.note5.width;
+    } else {
+      gridDefinition.colModel[11].hidden = false;
+      gridDefinition.colModel[11].width = 85;
+    }
+    if (userSettings.Source.Xpath) {
+      gridDefinition.colModel[12].hidden = userSettings.Source.Xpath.hidden;
+      gridDefinition.colModel[12].width = userSettings.Source.Xpath.width;
+    } else {
+      gridDefinition.colModel[12].hidden = false;
+      gridDefinition.colModel[12].width = 50;
+    }
+    if (userSettings.Source.TaxCode) {
+      gridDefinition.colModel[13].hidden = userSettings.Source.TaxCode.hidden;
+      gridDefinition.colModel[13].width = userSettings.Source.TaxCode.width;
+    } else {
+      gridDefinition.colModel[13].hidden = false;
+      gridDefinition.colModel[13].width = 50;
+    }
+    if (userSettings.Source.currency) {
+      gridDefinition.colModel[14].hidden = userSettings.Source.currency.hidden;
+      gridDefinition.colModel[14].width = userSettings.Source.currency.width;
+    } else {
+      gridDefinition.colModel[14].hidden = false;
+      gridDefinition.colModel[14].width = 80;
+    }
+    if (userSettings.Source.lastdate) {
+      gridDefinition.colModel[15].hidden = userSettings.Source.lastdate.hidden;
+      gridDefinition.colModel[15].width = userSettings.Source.lastdate.width;
+    } else {
+      gridDefinition.colModel[15].hidden = false;
+      gridDefinition.colModel[15].width = 80;
     }
 
     if (userSettings.Source.rowNum) {
@@ -321,10 +417,11 @@ define([
         Sidebar: {}
       };
 
-    $('h5#version').text(infoText.version);
-    $('h5#copyright').text(infoText.copyright);
-    $('title#title').text(i18next.t('Main.Title'));
-    $('h1#site_title').text(i18next.t('Main.SiteTitle'));
+    $('#version').text(infoText.version);
+    $('#copyright').text(infoText.copyright);
+    $('#database_user').text(utils.getConfig().database);
+   $('title#title').text(i18next.t('Main.Title'));
+  //  $('h1#site_title').text(i18next.t('Main.SiteTitle'));
     $('h3#group').text(i18next.t('Productgroup.Groups'));
     $('button#show').text(i18next.t('Main.Show'));
     $('button#hide').text(i18next.t('Main.Hide'));
@@ -364,7 +461,8 @@ define([
 
     var pgId = $('li#PG').eq(0).attr('productgroup_id');
     var pgtext = $('li#PG').eq(0).attr('desc');
-    initGrids(pgId, pgtext, userSettings);
+    var pgcomm = $('li#PG').eq(0).attr('comm');
+    initGrids(pgId, pgtext, userSettings,pgcomm);
 
     $(window).resize(function() {
       setTimeout(resizeGrids, 50);

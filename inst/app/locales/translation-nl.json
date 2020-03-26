@@ -2,7 +2,10 @@
   "YesNo": {
     "Yes" : "Ja",
     "No"  : "Nee",
-    "All" : "Alles"
+    "All" : "Alles",
+    "Incl" : "Inclusief",
+    "Low"  : "Laag tarief",
+    "High" : "Hoog tarief"
   },
 
   "Main": {
@@ -30,7 +33,15 @@
     "Website"         : "Website",
     "Active"          : "Actief",
     "Comment"         : "Opmerking",
+    "Note1"            : "Opm.1",
+    "Note2"            : "Opm.2",
+    "Note3"            : "Opm.3",
+    "Note4"            : "Opm.4",
+    "Note5"            : "Opm.5",
+    "Xpath"           : "Xpath",
     "Currency"        : "Munteenheid",
+    "TaxCode"         : "BTW",
+    "TaxUpdate"       : "BTW tarief aanpassen",
     "LastDate"        : "Datum",
     "LastValue"       : "Laatste prijs",
     "NoValue"         : "Geen prijs",
@@ -45,7 +56,8 @@
   "SourcePath": {
     "StepNumber"      : "#",
     "StepType"        : "Type",
-    "StepTypeValues"  : "L:Link;C:Context;I:Invoer;S:Submit;A:Print;CL:Click;W:Wacht;M:mouseMove;D:Download",
+    "StepTypeValues_nl"  : "C:Context;P:Prijs;L:Link;I:Invoer;S:Submit;A:Print;CL:Click;W:Wacht;M:mouseMove;D:Download",
+    "StepTypeValues"  : "C:Context;L:Link;I:Invoer;S:Submit;A:Print;CL:Click;W:Wacht;M:mouseMove;D:Download",
     "Path"            : "XPath",
     "Parameter"       : "Parameter",
     "Action"          : "Actie",
@@ -63,7 +75,7 @@
     "Quantity"			    : "Hoeveelheid",
     "Comment"           : "Opmerking",
     "Context"           : "PrijsContext",
-    "CopyValue"         : "Overnemen vorige waarneming",
+    "CopyValue"         : "Overnemen vorige/nieuwe waarneming",
     "ValueEmpty"        : "Vul een prijs in",
     "ValueNegative"     : ": prijs moet >= 0 zijn",
     "strValueNotNumeric": ": prijs moet numeriek zijn",
@@ -94,6 +106,7 @@
     "Label"         : "Overzicht",
     "Productgroup"  : "Artikel",
     "Source"        : "Bron",
+    "LastObsDate"   : "Datum",
     "HasPrice"      : "Prijs",
     "NoPrice"       : "Geen prijs",
     "NoObservation" : "Geen waarneming",
@@ -101,9 +114,17 @@
 
   },
 
+  "Taxupdate": {
+    "Label"         : "Wijzigen BTW tarief",
+    "Taxcode"       : "BTW code",
+    "Taxdes"        : "Type",
+    "Taxrate"       : "Tarief"
+  },
+
   "Server": {
     "SuccessMessage"    : "Gegevens opgeslagen",
     "ErrorMessage"      : "Foutmelding server:",
+    "ErrorUniekId"      : "Id komt al voor bij dit artikel",
     "GetPriceError"     : "Ophalen PrijsContext mislukt.",
     "SaveSuccess"       : "record(s) geschreven naar",
     "ExportError"       : "Exporteren prijzen mislukt, bestand =",
@@ -115,6 +136,7 @@
     "SaveObsError"      : "Prijsinformatie niet opgeslagen:",
     "PriceContextEmpty" : "PrijsContext is leeg",
     "NoData"            : "geen data",
+    "NoXpath"           : "Geen Xpath voor deze berichtgever",
     "NoObservation"     : "Er is nog geen waarneming voor deze berichtgever.",
     "NoBrowser"         : "Kan browser niet vinden: "
   }

@@ -66,6 +66,7 @@ var app = connect()
       } else {
         qry = qs.parse(url.parse(req.url).query);
       }
+      //console.log(qry)
       switch (qry.action) {
         case 'getProductgroup':
           robotDB.getProductgroup(
@@ -100,10 +101,11 @@ var app = connect()
           robotDB.updateSource(
             qry).then(
             function (result) {
-              res.writeHead(200, {'Content-Type': 'application/json'})
+              res.writeHead(result.statusCode, {'Content-Type': 'application/json'})
               res.statusCode = result.statusCode;
               res.end(JSON.stringify(result));
             });
+
           break;
         case 'getSourcePath':
           robotDB.getSourcePath(
@@ -195,6 +197,23 @@ var app = connect()
               res.end(JSON.stringify(result));
             });
           break;
+          case 'getTaxrate':
+            robotDB.getTaxrate(
+              qry).then(
+              function (result) {
+                res.writeHead(200, {'Content-Type': 'application/json'})
+                res.end(JSON.stringify(result));
+              });
+            break;
+          case 'updateTaxrate':
+            //console.log(qry)
+            robotDB.updateTaxrate(
+              qry).then(
+              function (result) {
+                res.writeHead(200, {'Content-Type': 'application/json'})
+                res.end(JSON.stringify(result));
+              });
+            break;
         case 'getConfig':
           res.writeHead(200, {'Content-Type': 'application/json'})
           res.end(JSON.stringify(config));
@@ -218,7 +237,7 @@ server.listen(
     if (config.Browser) {
       open('http://localhost:' + server.address().port, {app: config.Browser})
       .catch(function (err) {
-        console.log(serverMessages.NoBrowser + config.Browser)
+        //console.log(serverMessages.NoBrowser + config.Browser)
         server.close()
       });
     } else {

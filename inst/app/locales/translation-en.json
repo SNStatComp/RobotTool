@@ -2,7 +2,10 @@
   "YesNo": {
     "Yes" : "Yes",
     "No"  : "No",
-    "All" : "All"
+    "All" : "All",
+    "Incl" : "Included",
+    "Low"  : "Low rate",
+    "High" : "High rate"
   },
 
   "Main": {
@@ -29,7 +32,15 @@
     "Website"         : "Website",
     "Active"          : "Active",
     "Comment"         : "Comment",
+    "Note1"           : "Note 1",
+    "Note2"           : "Note 2",
+    "Note3"           : "Note 3",
+    "Note4"           : "Note 4",
+    "Note5"           : "Note 5",
+    "Xpath"           : "Xpath",
     "Currency"        : "Currency",
+    "TaxCode"         : "VAT",
+    "TaxUpdate"       : "Update VAT rate",
     "LastDate"        : "Date",
     "LastValue"       : "Last price",
     "NoValue"         : "No price",
@@ -44,7 +55,8 @@
   "SourcePath": {
     "StepNumber"      : "#",
     "StepType"        : "Type",
-    "StepTypeValues"  : "L:Link;C:Context;I:Input;S:Submit;A:Screenshot;CL:Click;W:Wait;M:mouseMove;D:Download",
+    "StepTypeValues_nl"  : "C:Context;P:Price;L:Link;I:Input;S:Submit;A:Screenshot;CL:Click;W:Wait;M:mouseMove;D:Download",
+    "StepTypeValues"  : "C:Context;L:Link;I:Input;S:Submit;A:Screenshot;CL:Click;W:Wait;M:mouseMove;D:Download",
     "Path"            : "XPath",
     "Parameter"       : "Parameter",
     "Action"          : "Action",
@@ -62,7 +74,7 @@
     "Quantity"			    : "Quantity",
     "Comment"           : "Comment",
     "Context"           : "Context",
-    "CopyValue"         : "Copy previous observation",
+    "CopyValue"         : "Copy previous/new observation",
     "ValueEmpty"        : "Please enter a price",
     "ValueNegative"     : ": price must be >= 0",
     "strValueNotNumeric": ": price must be numeric",
@@ -93,15 +105,24 @@
     "Label"         : "Summary",
     "Productgroup"  : "Product",
     "Source"        : "Source",
+    "LastObsDate"   : "Date",
     "HasPrice"      : "Price",
     "NoPrice"       : "No price",
     "NoObservation" : "No observation",
     "Total"         : "Total"
   },
 
+  "Taxupdate": {
+    "Label"         : "Update VAT rate",
+    "Taxcode"       : "VAT code",
+    "Taxdes"        : "Type",
+    "Taxrate"       : "VAT tarief"
+  },
+
   "Server": {
     "SuccessMessage"    : "Data saved",
     "ErrorMessage"      : "Error message server: ",
+    "ErrorUniekId"      : "Id already exists for this product",
     "GetPriceError"     : "Could not retrieve PriceContext",
     "SaveSuccess"       : "record(s) written to",
     "ExportError"       : "Export prices failed, file =",
@@ -113,6 +134,7 @@
     "SaveObsError"      : "Priceinformation not saved:",
     "PriceContextEmpty" : "PriceContext is empty",
     "NoData"            : "no data",
+    "NoXpath"           : "No Xpath for this source",
     "NoObservation"     : "No observation exists for this source.",
     "NoBrowser"         : " Could not find browser: "
   }

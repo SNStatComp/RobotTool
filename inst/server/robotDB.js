@@ -37,7 +37,7 @@ var sqlite3 = require('sqlite3').verbose(),
 var init = function(paths, config) {
   serverMessages = require('./../app/locales/translation-' + config.Language + '.json').Server;
   if (config.mode === 'server') {
-    db = new sqlite3.Database(paths.data + '/observationDB.sqlite');
+    db = new sqlite3.Database(paths.data + '/' +config.database);
   } else {
     db = new sqlite3.Database('./inst/server/db/observationDB.sqlite');
   }
@@ -67,9 +67,15 @@ var getSourceInfoFromDB = function(source_id, lastStep) {
   });
 };
 
+//'SELECT Source.source_id FROM Source WHERE is_active = 1 AND productgroup_id IN (' + productgroups.join(',') + ') ORDER BY productgroup_id';
 var getSourceIdsFromDB = function(productgroups) {
   var sql =
-    'SELECT source_id FROM Source WHERE is_active = 1 AND productgroup_id IN (' + productgroups.join(',') + ') ORDER BY productgroup_id';
+    'SELECT Source.source_id FROM Source ' +
+    ' left join SourcePath sp on source.source_id = sp.source_id ' +
+    ' WHERE is_active = 1 AND productgroup_id IN (' + productgroups.join(',') + ') ' +
+    ' group by Source.source_id ' +
+    ' having count(sp.source_id) > 0 ' +
+    ' ORDER BY productgroup_id';
   return new Promise(function(resolve, reject) {
     db.all(sql, function(err, sources) {
       resolve(sources)
@@ -218,7 +224,7 @@ var updateProductgroup = function(qry) {
       } else {
         resolve({
           statusCode: 500,
-          message: String(err),
+          message: '<div>' + String(err) + '</div>',
           action: 'updateProductgroup'
         });
       }
@@ -259,13 +265,22 @@ var getSource = function(qry) {
       'Source.url, ' +
       'Source.is_active, ' +
       'Source.comment, ' +
+      'Source.note1, ' +
+      'Source.note2, ' +
+      'Source.note3, ' +
+      'Source.note4, ' +
+      'Source.note5, ' +
+      'count(sp.source_id) as Xpath, ' +
+      'COALESCE(Source.tax_code,0) as TaxCode, ' +
       'Source.currency, ' +
       'SourceAdmin.last_observation_date as lastDate, ' +
       'COALESCE(SourceAdmin.last_observation,-1) as lastValue, ' +
       'Source.productgroup_id as productgroupId, ' + '1 ' +
     'FROM Source LEFT JOIN SourceAdmin ' +
     'ON Source.source_id = SourceAdmin.source_id ' +
-    'WHERE Source.productgroup_id = "' + qry.productgroup_id + '"' + filter +
+    'left join SourcePath sp on source.source_id = sp.source_id ' +
+    'group by source.source_id ' +
+    'having Source.productgroup_id = "' + qry.productgroup_id + '"' + filter +
     ' ORDER BY Source.' + qry.sidx + ' ' + qry.sord;
 
   return new Promise(function(resolve,reject) {
@@ -290,6 +305,12 @@ var updateSource = function(qry) {
             'url = "' + qry.url + '", ' +
             'is_active = "' + qry.is_active + '", ' +
             'comment = "' + qry.comment + '", ' +
+            'note1 = "' + qry.note1 + '", ' +
+            'note2 = "' + qry.note2 + '", ' +
+            'note3 = "' + qry.note3 + '", ' +
+            'note4= "' + qry.note4 + '", ' +
+            'note5 = "' + qry.note5 + '", ' +
+            'tax_code = "' + qry.TaxCode + '", ' +
             'currency = "' + qry.currency + '" ' +
           'WHERE source_id = "' + qry.id + '"';
         db.run(sql, function(err) {
@@ -309,7 +330,11 @@ var updateSource = function(qry) {
         break;
 
       case 'add':
-        sql = 'INSERT INTO Source (source, name, address, url, is_active, comment, currency, productgroup_id) ' +
+  /*      var sqlSel = 'SELECT source_id FROM Source WHERE ' + 'source = "' +
+                        qry.source + '" ' + 'AND productgroup_id ="' + qry.productgroupId + '"';
+        db.get (sqlSel,function(err,row){
+        if !err */
+        sql = 'INSERT INTO Source (source, name, address, url, is_active, comment, note1, note2, note3, note4, note5, currency, productgroup_id) ' +
         'VALUES ("' +
           qry.source + '","' +
           qry.name + '","' +
@@ -317,6 +342,11 @@ var updateSource = function(qry) {
           qry.url + '","' +
           qry.is_active + '","' +
           (qry.comment || '') + '","' +
+          (qry.note1 || '') + '","' +
+          (qry.note2 || '') + '","' +
+          (qry.note3 || '') + '","' +
+          (qry.Note4 || '') + '","' +
+          (qry.note5 || '') + '","' +
           (qry.currency || '') + '","' +
           qry.productgroupId + '")';
         db.run(sql, function(err) {
@@ -356,11 +386,13 @@ var updateSource = function(qry) {
           } else {
               resolve({
                 statusCode: 500,
-                message: String(err),
+                message: '<div>' + serverMessages.ErrorUniekId + '</div>',
                 action: 'updateSource'
               });
+              //console.log(String(err));
           }
         });
+  /*    }); */
         break;
 
       case 'del':
@@ -527,7 +559,6 @@ var updateObservation = function(qry) {
   var sql;
   return new Promise(function(resolve,reject) {
     if (qry.oper == 'edit') {
-
       if (qry.id == qry.lblValue) {
         db.serialize(function() {
           sql =
@@ -535,7 +566,6 @@ var updateObservation = function(qry) {
             'SET value = "' + qry.Lobservation + '" ' +
             'WHERE observation_id = "' + qry.observation_id + '"';
           db.run(sql);
-
           sql =
             'UPDATE SourceAdmin SET ' +
               'last_observation= "' + qry.Lobservation + '" ' +
@@ -562,6 +592,7 @@ var updateObservation = function(qry) {
           'UPDATE Observation ' +
           'SET quantity = "' + qry.Lobservation + '" ' +
           'WHERE observation_id = "' + qry.observation_id + '"';
+        //console.log(sql)
         db.run(sql, function(err) {
           if (!err) {
             resolve({
@@ -603,8 +634,9 @@ var updateObservation = function(qry) {
           var sql =
             'UPDATE Observation ' +
             'SET value = "' + qry.Lobservation.value + '", ' +
-              'quantity ="' + qry.Lobservation.quantity + '" ' +
+              'quantity = "' + qry.Lobservation.quantity + '" ' +
             'WHERE observation_id = "' + qry.observation_id + '"';
+            //console.log(sql);
           db.run(sql);
 
           sql =
@@ -739,8 +771,13 @@ var processProductgroup = function* (qry) {
 var insertObservationSource = function(result) {
 
   // get last observation
+  var datumFm = '%Y%m%d'
   var sql =
-    'SELECT value, quantity, context ' +
+    'SELECT observation_id, value, quantity, context , observation_date,strftime("' +  datumFm + '"  ' +
+    ',observation_date) as lastObsYmd ' +
+
+    ',strftime("' +  datumFm + '"  ' +
+    ',datetime()) as todayYmd ' +
     'FROM Observation ' +
     'WHERE source_id ="' + result.source_id + '" ' +
     'ORDER BY observation_date DESC LIMIT 0,1';
@@ -751,11 +788,17 @@ var insertObservationSource = function(result) {
         newContext = 'NA',
         oldValue = -1,
         oldQuantity = '',
-        oldContext = 'NA';
+        oldContext = 'NA',
+        newObsDate = '',
+        oldObsDate = '',
+        obsId = 0;
       if (row != undefined) {
         //a prevous observation exists
         oldValue = row.value;
         oldContext = row.context;
+        newObsDate = row.todayYmd;
+        oldObsDate = row.lastObsYmd;
+        obsId = row.observation_id;
         if (row.quantity != undefined) {
           oldQuantity = row.quantity;
         } else {
@@ -765,6 +808,10 @@ var insertObservationSource = function(result) {
         newQuantity = 1;
       }
       newContext = result.context;
+      if (!newContext) {
+        newContext = 'NA'
+      }
+
       if (_.isObject(newContext)) {
         newContext = String(newContext);
         newContext = newContext.replace(/\"/g, '');
@@ -786,22 +833,35 @@ var insertObservationSource = function(result) {
           'WHERE source_id = "' + result.source_id + '"';
         db.run(sql);
       } else {
-        //This is the first observation for sourceId
+        //This is the first observation for sourceId but no insert for sources with no XPath
         sql =
           'INSERT INTO SourceAdmin ' +
             '(source_id, last_observation, last_observation_date, is_exported) ' +
             'VALUES ("' + result.source_id + '","' + newValue + '","' + result.date + '","' + 0 + '")';
         db.run(sql);
       }
-      //finally insert the new observation into the database
-      sql =
-        'INSERT INTO Observation (source_id, observation_date, value, quantity, context,user_id) VALUES ("' +
-          result.source_id + '","' +
-          result.date + '","' +
-          newValue + '","' +
-          newQuantity + '","' +
-          cleanupContent(newContext) + '","' +
-          result.user_id + '")';
+      // finally insert the new observation into the database
+      // insert when runs for the first time on a day otherwise an update
+      if (newObsDate == oldObsDate && oldObsDate != '') {
+        sql =
+          'UPDATE Observation SET ' +
+            'value = "' + newValue + '",' +
+            'observation_date = "' + result.date + '",' +
+            'quantity = "' + newQuantity + '",' +
+            'context = "' + cleanupContent(newContext) + '", ' +
+            'user_id = "' + result.user_id + '" ' +
+            'WHERE observation_id = "' + obsId + '"';;
+      } else {
+        sql =
+          'INSERT INTO Observation (source_id, observation_date, value, quantity, context,user_id) VALUES ("' +
+            result.source_id + '","' +
+            result.date + '","' +
+            newValue + '","' +
+            newQuantity + '","' +
+            cleanupContent(newContext) + '","' +
+            result.user_id + '")';
+      }
+      //console.log(sql)
       db.run(sql, function(err) {
         if (err) {
           reject(err);
@@ -814,63 +874,77 @@ var insertObservationSource = function(result) {
 };
 
 var updateObservationSource = function* (result) {
-
-  //this updates the last observation that is already saved in the database,
-  //therefore get the penultimate observation (if exists) for comparison with the last obs. and edit the last observation
+  // this function updates the last observation of this source if there exists observations for this source.
+  // if no observation for this source exists an observation is inserted.
   var sql =
     'SELECT value, quantity, context ' +
     'FROM Observation ' +
     'WHERE source_id ="' + result.source_id + '" ' +
-    'ORDER BY observation_date DESC LIMIT 1,1';
+    'ORDER BY observation_date DESC LIMIT 0,2';
   return new Promise(function(resolve,reject) {
-    db.get(sql, function(err, row) {
+    db.all(sql, function(err, rows) {
       var newContext = result.context,
         newValue = -1,
-        newQuantity = -1;
+        newQuantity = -1,
+        row = undefined;
 
       if (newContext == '') {
         newContext = 'NA';
       }
 
       newContext = newContext.replace(/\"/g, '');
+      if (rows.length > 0) {
+        //this updates the last observation that is already saved in the database,
+        //therefore get the penultimate observation (if exists) for comparison with the last obs. and edit the last observation
 
-      if (row != undefined) {
-        var oldContext = row.context,
-          oldValue = row.value,
-          oldQuantity = row.quantity;
-        var isEqual = (cleanupContent(newContext) === oldContext);
-        //result.error is assigned as a boolean in procedure processSource,
-        //during transport from server to client and back it is converted to a string
-        if (isEqual && (result.error == 'false')) {
-          newValue = oldValue;
-          newQuantity = oldQuantity;
+        if (rows.length == 2) {
+          row = rows[1]
         }
-      }
-      sql =
-        'UPDATE SourceAdmin SET ' +
-          'last_observation = "' + newValue + '" ' +
-          'WHERE source_id = "' + result.source_id + '"';
-      db.run(sql, function() {
-        sql =
-          'UPDATE Observation SET ' +
-            'value = "' + newValue + '",' +
-            'quantity = "' + newQuantity + '",' +
-            'context = "' + cleanupContent(newContext) + '", ' +
-            'user_id = "' + result.user_id + '" ' +
-            'WHERE observation_id IN ' +
-            ' (SELECT observation_id ' +
-            ' FROM Observation ' +
-            ' WHERE source_id = "' + result.source_id + '" ' +
-            ' ORDER BY observation_date DESC LIMIT 0,1)';
-
-        db.run(sql, function(err) {
-          if (err) {
-            resolve(err);
-          } else {
-            resolve(serverMessages.SaveObsSuccess);
+        if (row != undefined) {
+          var oldContext = row.context,
+            oldValue = row.value,
+            oldQuantity = row.quantity;
+          var isEqual = (cleanupContent(newContext) === oldContext);
+          //result.error is assigned as a boolean in procedure processSource,
+          //during transport from server to client and back it is converted to a string
+          if (isEqual && (result.error == 'false')) {
+            newValue = oldValue;
+            newQuantity = oldQuantity;
           }
+        }
+        sql =
+          'UPDATE SourceAdmin SET ' +
+            'last_observation = "' + newValue + '" ' +
+            'WHERE source_id = "' + result.source_id + '"';
+        db.run(sql, function() {
+          sql =
+            'UPDATE Observation SET ' +
+              'value = "' + newValue + '",' +
+              'quantity = "' + newQuantity + '",' +
+              'context = "' + cleanupContent(newContext) + '", ' +
+              'user_id = "' + result.user_id + '" ' +
+              'WHERE observation_id IN ' +
+              ' (SELECT observation_id ' +
+              ' FROM Observation ' +
+              ' WHERE source_id = "' + result.source_id + '" ' +
+              ' ORDER BY observation_date DESC LIMIT 0,1)';
+          //console.log(sql)
+          db.run(sql, function(err) {
+            if (err) {
+              resolve(err);
+            } else {
+              resolve(serverMessages.SaveObsSuccess);
+            }
+          });
         });
-      });
+      } else {
+        // for this source this is the first observation, insert this observation in the database.
+        result.date = moment().format('YYYY-MM-DD HH:mm:ss');
+        insertObservationSource(result).then(
+          function(res) {
+            resolve(serverMessages.SaveObsSuccess)
+        })
+      }
     });
   })
 };
@@ -888,23 +962,20 @@ var exportObservations = function(qry) {
     'SELECT ' +
       'Productgroup.productgroup, ' +
       'BG1.source, ' +
-      'Observation.observation_date, ' +
-      'Observation.value, ' +
+      'max(Observation.observation_date) as observation_date, ' +
+      'case when Observation.value = -1 then -1 else (1 + coalesce(tr.tax_rate,0)/100)  * Observation.value end value, ' +
       'Observation.quantity, ' +
       'Observation.comment, ' +
       'Observation.context, ' +
       'Observation.user_id ' +
     'FROM Productgroup JOIN Source AS BG1 ' +
-    'ON Productgroup.productgroup_id = BG1.productgroup_id JOIN Observation ' +
-    'ON BG1.source_id = Observation.source_id ' +
-    'WHERE BG1.is_active = 1 AND ' +
-      'Observation.observation_date = ' +
-        '(SELECT ' +
-          'MAX(last_observation_date) ' +
-        'FROM Source AS BG2 JOIN SourceAdmin ' +
-        'ON BG2.source_id = SourceAdmin.source_id ' +
-        'WHERE BG1.productgroup_id = BG2.productgroup_id) ' +
-      filter;
+    'ON Productgroup.productgroup_id = BG1.productgroup_id  ' +
+    'left	JOIN TaxRate as tr  ON tr.tax_code = BG1.tax_code ' +
+    'JOIN Observation ON BG1.source_id = Observation.source_id ' +
+    filter +
+    'WHERE BG1.is_active = 1  ' +
+    'group by Productgroup.productgroup, BG1.source ';
+
 
   return new Promise(function(resolve,reject) {
     db.all(sql, function(err, rows) {
@@ -947,6 +1018,11 @@ var exportConfiguration = function(qry) {
       'Source.url, ' +
       'Source.is_active, ' +
       'Source.comment, ' +
+      'Source.note1, ' +
+      'Source.note2, ' +
+      'Source.note3, ' +
+      'Source.note4, ' +
+      'Source.note5, ' +
       'Source.currency, ' +
       'SourcePath.path, ' +
       'SourcePath.step_no, ' +
@@ -961,7 +1037,12 @@ var exportConfiguration = function(qry) {
     db.all(sql, function(err, rows) {
       var filename = qry.exportFolder + moment().format('YYYYMMDD_HHmmss') + 'Config-' + qry.productgroup + '.csv',
         r = '';
-      csv.writeToPath(filename, rows, {headers: true}).on("finish", function() {
+      csv.writeToPath(filename, rows, {
+        headers: true,
+        rowDelimiter: "\r\n",
+        quoteColumns: true,
+        delimiter: ";"
+        }).on("finish", function() {
         r = rows.length + ' ' + serverMessages.SaveSuccess + ' ' + filename;
         resolve(r);
       }).on("error", function(err) {
@@ -974,17 +1055,22 @@ var exportConfiguration = function(qry) {
 
 var importConfiguration = function(qry) {
   return new Promise(function(resolve,reject) {
-    var filename = qry.exportFolder + qry.fileName,
+    var filename =  qry.fileName,
+  //  filename = qry.exportFolder + qry.fileName,
       stream = fs.createReadStream(filename, {encoding: 'utf8'}),
       result = [],
       r = '';
+
     stream.on('error', function(err) {
       r = serverMessages.SaveConfigError + filename + ": " + String(err);
       return new Promise(function(resolve,reject) {resolve(r)});
     });
-    csv.fromStream(stream, {headers: true}).on('record', function(data) {
-      result.push(data);
+//    csv.fromStream(stream, {headers: true, delimiter: ';'}).on('record', function(data) {
+  //    result.push(data);
+    csv.fromStream(stream, {headers: true, delimiter: ';'}).on('data', function(data) {
+        result.push(data);
     }).on('error', function(err) {
+      console.log('Import config 2')
       r = serverMessages.SaveConfigError + filename + ": " + String(err);
       resolve(r);
     }).on('finish', function() {
@@ -992,20 +1078,26 @@ var importConfiguration = function(qry) {
       for (var row of result) {
         productgroup.push(_.pick(row, ['productgroup', 'description', 'productgroupComment']));
       };
-      productgroup = _.uniq(productgroup, 'productgroup');
-      // check if productgroup already exists
+      //productgroups = _.uniq(productgroup, 'Productgroup');  // check if productgroup already exists
       var sql = 'SELECT * FROM Productgroup WHERE productgroup ="' + productgroup[0].productgroup + '"';
       db.get(sql, function(err, row) {
         if (row == undefined) {
           db.serialize(function() {
             var insertProductgroup = 'INSERT INTO ProductGroup (productgroup, description, comment) VALUES ("';
-            dbWriteTable(insertProductgroup, productgroup);
+            dbWriteTable(insertProductgroup, productgroup[0]);
             var sql = 'SELECT productgroup_id FROM ProductGroup WHERE productgroup = "' + productgroup[0].productgroup + '"';
             db.get(sql, function(err, pg) {
-              var sources = [];
+              var sources = [],
+              sourceNew = [],
+              sourceKey = '',
+              tel = 0;
               for (var row of result) {
                 row.productgroup_id = pg.productgroup_id;
-                sources.push(_.pick(row, [
+                sourceNew.push(_.pick(row, [
+                  'source'
+                ]));
+                if (sourceKey != sourceNew[tel].source){
+                  sources.push(_.pick(row, [
                   'source',
                   'productgroup_id',
                   'name',
@@ -1013,13 +1105,22 @@ var importConfiguration = function(qry) {
                   'url',
                   'is_active',
                   'comment',
+                  'note1',
+                  'note2',
+                  'note3',
+                  'note4',
+                  'note5',
                   'currency'
                 ]));
+                }
+                sourceKey = sourceNew[tel].source;
+                tel += 1;
+
               };
-              sources = _.uniq(sources, 'source');
-              var insertSources = 'INSERT INTO Source (source, productgroup_id, name, address, url, is_active, comment, currency) VALUES ("';
+              var insertSources = 'INSERT INTO Source (source, productgroup_id, name, address, url, is_active, comment, note1, note2, note3, note4, note5, currency) VALUES ("';
+              var source_new_id  = '';
               for (const source of sources) {
-                dbWriteTable(insertSources, source, function() {
+                  dbWriteTable(insertSources, source, function() {
                   var sql = 'SELECT source_id FROM Source WHERE ' + 'source ="' + source.source + '" ' + 'AND productgroup_id ="' + pg.productgroup_id + '"';
                   db.get(sql, function(err, s) {
                     var resultSource = _.filter(result, {'source': source.source});
@@ -1029,22 +1130,23 @@ var importConfiguration = function(qry) {
                       paths.push(_.pick(row, ['source_id', 'path', 'parameter', 'step_no', 'step_type']));
                     };
                     var insertSourcePath = 'INSERT INTO SourcePath (source_id, path, parameter, step_no, step_type) VALUES ("';
-                    dbWriteTable(insertSourcePath, paths);
+                      dbWriteTable(insertSourcePath, paths);
                   });
                 });
-              };
+                };
+             });
 
             });
             r = serverMessages.ImportSuccess;
             resolve(r);
-          });
-        } else {
+          }
+         else {
           r = serverMessages.ImportError.replace('#', productgroup[0].productgroup);
           resolve(r);
         }
       });
     });
-  })
+});
 };
 
 var createResultForJQGrid = function(qry, rows) {
@@ -1099,7 +1201,7 @@ var dbWriteTable = function(sql, data, callback) {
         return result + '","' + el;
       });
       r = sql + r + '")';
-      db.run(r);
+      db.run(r, callback);
     };
   } else {
     var r = _.reduce(data, function(result, el) {
@@ -1143,16 +1245,19 @@ var getMetrics = function(qry) {
   var sql =
     'SELECT ' +
       'p.description AS productgroup, s.name AS name, ' +
+      'lod.observation_date as lastobsdate,' +
       'CASE WHEN o.value == -1 THEN 1 ELSE 0 END AS noprice, ' +
       'CASE WHEN o.value > -1 THEN 1 ELSE 0 END AS hasprice, ' +
       'CASE WHEN o.value is null THEN 1 ELSE 0 END AS noobs ' +
     'FROM ProductGroup AS p JOIN Source AS s ON p.productgroup_id = s.productgroup_id ' +
+                           'LEFT JOIN observation as lod on lod.source_id = s.source_id and lod.value <> -1 ' +
       'JOIN (SELECT max(sa1.last_observation_date) AS maxdate, s1.productgroup_id AS pid ' +
         'FROM SourceAdmin AS sa1 JOIN Source AS s1 ON sa1.source_id = s1.source_id ' +
         'GROUP BY s1.productgroup_id) ON pid = p.productgroup_id ' +
         'LEFT JOIN Observation AS o ON (maxdate = o.observation_date and o.source_id = s.source_id) ' +
     'WHERE s.is_active = 1 ' +
-    'ORDER BY p.description'
+    'group by p.description,s.source_id ' +
+    'ORDER BY p.description, lod.observation_date'
 
     return new Promise(function(resolve,reject) {
       db.all(sql,function(err,rows) {
@@ -1160,7 +1265,47 @@ var getMetrics = function(qry) {
         resolve(r);
       })
     })
-}
+};
+
+var getTaxrate = function(qry) {
+  var sql =
+  'SELECT tax_code as tax_code, tax_rate as tax_rate, tax_description as tax_des ' +
+  'FROM TaxRate ' +
+  'ORDER BY tax_code'
+    //console.log(sql)
+  return new Promise(function(resolve,reject) {
+
+      db.all(sql,function(err,rows) {
+        //console.log(String(err));
+        var r = createResultForJQGrid(qry, rows);
+        resolve(r);
+      })
+    })
+};
+
+var updateTaxrate = function(qry) {
+  var sql =
+        'UPDATE TaxRate ' +
+        'SET tax_rate = "' + qry.tax_rate  + '" ' +
+        'WHERE tax_description = "' + qry.id + '"';
+      //console.log(sql)
+  return new Promise(function(resolve,reject) {
+    db.run(sql, function(err) {
+      if (!err) {
+        resolve({
+          statusCode: 200,
+          message: '<div>' + serverMessages.SuccessMessage + '</div>'
+        });
+      } else {
+        resolve({
+          statusCode: 500,
+          message: String(err),
+          action: 'updateTaxrate'
+        });
+      }
+    });
+  })
+};
 
 module.exports.init = init;
 module.exports.getSourceInfo = getSourceInfoFromDB;
@@ -1180,3 +1325,5 @@ module.exports.exportConfiguration = exportConfiguration;
 module.exports.importConfiguration = importConfiguration;
 module.exports.chartData = chartData;
 module.exports.getMetrics = getMetrics;
+module.exports.getTaxrate = getTaxrate;
+module.exports.updateTaxrate = updateTaxrate;

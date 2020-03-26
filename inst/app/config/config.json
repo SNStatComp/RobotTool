@@ -7,5 +7,6 @@
     "Browser": "c:/Program Files/Mozilla Firefox/firefox.exe",
     "Headless": "firefox",
     "proxy": "",
+    "database": "observationDB.sqlite",
     "proxy_auth": ""
 }

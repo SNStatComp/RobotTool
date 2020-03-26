@@ -334,3 +334,7 @@ position:relative;
 vertical-align:text-top;
 white-space:normal !important;
 }
+
+.ui-icon-grid_updatetax {
+  background-image: url( 'images/icons8-tax-16zw.png')!important ;
+}
