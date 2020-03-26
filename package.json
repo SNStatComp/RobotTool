@@ -39,7 +39,7 @@
     "upgradeDB": "node inst/server/upgradeDB.js"
   },
   "devDependencies": {
-    "eslint": "^3.17.1",
+    "eslint": "^4.18.2",
     "eslint-config-standard": "^7.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-react": "^6.10.0",
