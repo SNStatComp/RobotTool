@@ -1,10 +1,6 @@
 # RobotTool
 Tool for detecting (price) changes on webpages, created and used by Statistics Netherlands.
 
-This tool is provided under an EUPL license on an ‘as is’ basis and without warranties of any kind (see license file).
-Other organisations are invited to use it.
-Feedback is appreciated (by email or by adding an issue ticket on this repo).
-
 ## Workflow
 The RobotTool is an interactive tool for price analysts.
 The analyst defines a number of products and for each product where the product can be found on the web.
@@ -50,6 +46,12 @@ Start application:
 ```
 
 See the user guide in the documentation map for detailed description of this application.
+
+## License and feedback
+This tool is provided under an EUPL license on an ‘as is’ basis and without warranties of any kind (see license file).
+Other organisations are invited to use it.
+Feedback is appreciated (by email or by adding an issue ticket on this repo).
+
 
 ## Credits
 The development of this tool was partly subsidized by a Grant from Eurostat. Previous versions were published at our
