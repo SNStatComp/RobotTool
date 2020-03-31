@@ -1,9 +1,7 @@
 # RobotTool
-Tool for detecting (price) changes on webpages.
+Tool for detecting (price) changes on webpages, created and used by Statistics Netherlands.
 
-In this repo we maintain an international version of the RobotTool, used by Statistics Netherlands
-to check products on websites on a regular basis for price changes.
-It is provided under an EUPL license on an ‘as is’ basis and without warranties of any kind (see license file).
+This tool is provided under an EUPL license on an ‘as is’ basis and without warranties of any kind (see license file).
 Other organisations are invited to use it.
 Feedback is appreciated (by email or by adding an issue ticket on this repo).
 
@@ -14,13 +12,12 @@ In a data collection run the tool checks the product descriptions (including pri
 If nothing changed, the product status turns green and the price that was stored in the last run is written as a price observation to the databse.
 If there is a change detected the product status turns red and the changes with respect to the last run are shown.
 The analyst checks all red products and manually enters the correct price.
-In case the red status was due to the fact that the product was not found, the analyst corects the product configuration.
+In case the red status was due to the fact that the product was not found, the analyst redefines the product configuration.
 The analyst typically repeats this proces on a regular basis, per week or month, for example in the proces to compose the HICP.
 
-Graphically:
 ![Workflow](workflow.png)
 
-Obviously every product has to be initialised.
+Obviously every product has to be initialised once.
 The first time that a product is collected it always turns red and the analyst has to manually enter the correct price.
 
 ## Prerequisites
