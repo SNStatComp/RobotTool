@@ -3,12 +3,15 @@ Tool for detecting (price) changes on webpages, created and used by Statistics N
 
 ## Workflow
 The RobotTool is an interactive tool for price analysts.
-The analyst defines a number of products and for each product where the product can be found on the web.
-In a data collection run the tool checks the product descriptions (including prices) for changes with respect to the last run.
-If nothing changed, the product status turns green and the price that was stored in the last run is written as a price observation to the databse.
-If there is a change detected the product status turns red and the changes with respect to the last run are shown.
-The analyst checks all red products and manually enters the correct price.
-In case the red status was due to the fact that the product was not found, the analyst redefines the product configuration.
+
+The analyst **defines** a number of **products** and for each product where the product can be found on the web.
+During **data collection** the tool checks the product descriptions on the web.
+If nothing changed the product status turns green and the price that was stored in the last run is added to the databse.
+If a change was detected the product status turns red.
+The analyst **checks** all **products with status red**:
+- If the **price** was **unchanged** the analysts **keep price button**.
+- If the **price** was **changed** the analyst **corrects the price**.
+- If the product was not found usually because of a **website change** the analyst **redefines** the **product** configuration.
 The analyst typically repeats this proces on a regular basis, per week or month, for example in the proces to compose the HICP.
 
 ![Workflow](workflow.png)
