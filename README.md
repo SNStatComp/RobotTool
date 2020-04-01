@@ -16,8 +16,6 @@ The analyst **checks** all **products with status red**:
 ![Workflow](workflow.png)
 
 The analyst typically repeats this proces on a regular basis, per week or month, for example in the proces to compose the HICP.
-Obviously every product has to be initialised once.
-The first time that a product is collected it always turns red and the analyst has to manually enter the correct price.
 
 ## Prerequisites
 - Node.js (version 8 or higher)
