@@ -33,7 +33,7 @@ When you upgrade from Robottool version < 3 you also have to upgrade the databas
 
 Run the command:
 ```bash
-  $ npm upgradeDB
+  $ npm run-script upgradeDB
 ```
 
 If you have made some changes in the config file (.\inst\app\config\config.json) apply these changes also to the config file in the new version. Please don’t overwrite the new version of this file with the old version (some new config options were added).
