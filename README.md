@@ -6,7 +6,7 @@ The RobotTool is an interactive tool for price analysts.
 
 The analyst **defines** a number of **products** and their locations on the web.
 During **data collection** the tool checks the products on the websites.
-If nothing changed the product status turns green and the last known price for that product is added to the databse.
+If nothing changed the product status turns green and the last known price for that product is added to the database.
 If a change was detected the product status turns red.
 The analyst **checks** all **products with status red**:
 - If the **price** was **unchanged** the analysts **keeps the price**.
