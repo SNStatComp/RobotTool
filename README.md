@@ -19,26 +19,23 @@ The analyst **checks** all **products with status red**:
 
 The analyst typically repeats this proces on a regular basis, per week or month, for example in the proces to compose the HICP.
 
-## Installation
+## Installation and start
 - Install [node.js](https://nodejs.org/en/) and a modern browser (Mozilla Firefox or Google Chrome)
 - Download the RobotTool, unzip it, and run from the command line in the extracted folder: 
 ```bash
   $ npm install
 ```
-
-## Starting the tool
-You can start the tool from the command line by: 
+- Start the tool from the command line. A webserver will be started and a browser window pop up. 
 Start application:
 ```bash
   $ npm start
 ```
-A webserver will be started and a browser window will open with the user interface. 
 
 ## Quickstart
-The folder `examples` contains some example configuration files.
+The folder `Examples` contains some example configuration files.
 These configuration files can be loaded using the `Edit` button in the Products panel and the `Import configuration` button in the panel that opens next.
 
-These example configurations show a number of ways to collect prices for mountainbikes and children bikes from [this testsite](https://snstatcomp.github.io/webscrapingtests/RobotTool/)   
+These example configurations shoow an example collecting prices for mountainbikes and children bikes from [this testsite](https://snstatcomp.github.io/webscrapingtests/RobotTool/)
 
 See the user guides in the `/doc` folder for a more extensive description of the functionality and use of the tool.
 
@@ -54,7 +51,7 @@ Run the command:
 If you have made some changes in the config file (.\inst\app\config\config.json) apply these changes also to the config file in the new version. Please don’t overwrite the new version of this file with the old version (some new config options were added).
 
 ## Limitations / known bugs
-- If you end the RobotTool without terminating the server process you will get an error if you start it again. The solution is to end the respective node process running in the background.
+- If you end the RobotTool without terminating the webserver process you will get an error if you start it again. The solution is to end the respective node process running in the background.
 
 ## Suggestions
 Questions, suggestions, ideas are welcome: 
