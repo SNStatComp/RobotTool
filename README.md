@@ -19,24 +19,28 @@ The analyst **checks** all **products with status red**:
 
 The analyst typically repeats this proces on a regular basis, per week or month, for example in the proces to compose the HICP.
 
-## Prerequisites
-- Node.js (version 8 or higher)
-- Google Chrome (version >= 61) or Mozilla Firefox (version >= 56)
-
 ## Installation
-
+- Install [node.js](https://nodejs.org/en/) and a modern browser (Mozilla Firefox or Google Chrome)
+- Download the RobotTool, unzip it, and run from the command line in the extracted folder: 
 ```bash
   $ npm install
 ```
 
-## Usage
-
+## Starting the tool
+You can start the tool from the command line by: 
 Start application:
 ```bash
   $ npm start
 ```
+A webserver will be started and a browser window will open with the user interface. 
 
-See the user guide in the documentation map for detailed description of this application.
+## Quickstart
+The folder `examples` contains some example configuration files.
+These configuration files can be loaded using the `Edit` button in the Products panel and the `Import configuration` button in the panel that opens next.
+
+These example configurations show a number of ways to collect prices for mountainbikes and children bikes from [this testsite](https://snstatcomp.github.io/webscrapingtests/RobotTool/)   
+
+See the user guides in the `/doc` folder for a more extensive description of the functionality and use of the tool.
 
 ## Upgrading
 When you upgrade from an earlier version of the RobotTool and want to re-use your existing database, copy the file observationDB.sqlite in the folder ‘inst/server/db’ to the same folder in the new version.
