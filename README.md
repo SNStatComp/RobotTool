@@ -1,9 +1,7 @@
 [![Mentioned in Awesome Official Statistics ](https://awesome.re/mentioned-badge.svg)](http://www.awesomeofficialstatistics.org)
 
 # RobotTool
-Tool for detecting (price) changes on webpages.
-
-By the [knowledge group on statistical computing](https://github.com/SNStatComp) of [Statistics Netherlands](https://www.cbs.nl/en-gb)
+Tool for detecting (price) changes on webpages by [Statistics Netherlands](https://www.cbs.nl/en-gb)
 
 ## Workflow
 The RobotTool is an interactive tool for price analysts.
@@ -57,12 +55,12 @@ If you have made some changes in the config file (.\inst\app\config\config.json)
 ## Suggestions
 Questions, suggestions, ideas are welcome: 
 - The GitHub way: send us a [pull request](https://help.github.com/articles/creating-a-pull-request/) to add directly to this list.
-- Add an item to the [issue tracker](https://github.com/SNStatComp/RobotTool/issues) issue tracker. (you need a GH account)
-- Send an e-mail to `o dot tenbosch at cbs dot nl` or `d dot windmeijer at cbs dot nl` or tweet [\@kobosch](https://twitter.com/kobosch)
+- Add an item to the [issue tracker](https://github.com/SNStatComp/RobotTool/issues) issue tracker (you need a GH account).
+- Send an e-mail to `o dot tenbosch at cbs dot nl` or `hjm dot windmeijer at cbs dot nl`
 
 ## License
 This tool is provided under an EUPL license on an ‘as is’ basis and without warranties of any kind (see license file).
 
 ## Credits
-The development of this tool would not have been possible without the active involvement over many years by many price analysts from the price department of Statistics Netherlands.
-Also, early versions of this tool still available at our [research server](http://research.cbs.nl/Projects/RobotTool) were partly subsidized by a Grant from Eurostat.
+The development of this tool would not have been possible without the active involvement of many price analysts from the price department of Statistics Netherlands.
+Early versions of this tool were partly subsidized by a Grant from Eurostat. Older versions are still available at our [research server](http://research.cbs.nl/Projects/RobotTool).
