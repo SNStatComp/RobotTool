@@ -26,20 +26,20 @@ The analyst typically repeats this proces on a regular basis, per week or month,
   $ npm install
 ```
 ## Start
-Start the tool from the command line. A webserver will be started and a browser window will pop up.
+Run from the command line: 
 ```bash
   $ npm start
 ```
+A webserver will be started and a browser window will pop up.
 
 ## Examples
-The folder `Examples` contains a number example configuration files working on [this testsite](https://snstatcomp.github.io/webscrapingtests/RobotTool/).
-These files can be loaded via the `Edit` button in the Products panel and the `Import configuration` button thereafter.
+The folder `Examples` contains some example configuration files that you can load into the tool via the `Edit` -> `Import configuration` button from the products panel.
 
-- Example 1 shows a number of mountainbikes and children bikes by id
+Example 1 shows the collection of prices of bikes from [this testsite](https://snstatcomp.github.io/webscrapingtests/RobotTool/).
+Here is a [screenshot](example1.png)
 
-More examples might be added later
-
-See the user guides in the `/doc` folder for a more extensive description of the functionality and use of the tool.
+## Documentation
+See the user guides in the `/doc` folder for a more extensive description of the functionality and use of the tool. The screenshots in these docs were taken using an earlier version, but the working of the tool is pretty much the same.
 
 ## Upgrading
 When you upgrade from an earlier version of the RobotTool and want to re-use your existing database, copy the file observationDB.sqlite in the folder ‘inst/server/db’ to the same folder in the new version.
@@ -61,7 +61,7 @@ Questions, suggestions, ideas are welcome:
 - Send us a [pull request](https://help.github.com/articles/creating-a-pull-request/) if you have an improvement you think is valuable to all.
 
 ## License
-This tool is provided under an EUPL license on an ‘as is’ basis and without warranties of any kind (see license file).
+This tool is provided under an EUPL license on an ‘as is’ basis and without warranties of any kind (see [license file](./LICENSE)).
 
 ## Credits
 The development of this tool would not have been possible without the active involvement of many price analysts from the price department of Statistics Netherlands.
