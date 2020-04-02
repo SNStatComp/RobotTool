@@ -1,7 +1,9 @@
 [![Mentioned in Awesome Official Statistics ](https://awesome.re/mentioned-badge.svg)](http://www.awesomeofficialstatistics.org)
 
 # RobotTool
-Tool for detecting (price) changes on webpages, created by the [knowledge group on statistical computing](https://github.com/SNStatComp) of [Statistics Netherlands](https://www.cbs.nl)
+Tool for detecting (price) changes on webpages.
+
+By the [knowledge group on statistical computing](https://github.com/SNStatComp) of [Statistics Netherlands](https://www.cbs.nl/en-gb)
 
 ## Workflow
 The RobotTool is an interactive tool for price analysts.
@@ -39,7 +41,6 @@ Start application:
 See the user guide in the documentation map for detailed description of this application.
 
 ## Upgrading
-
 When you upgrade from an earlier version of the RobotTool and want to re-use your existing database, copy the file observationDB.sqlite in the folder ‘inst/server/db’ to the same folder in the new version.
 When you upgrade from Robottool version < 3 you also have to upgrade the database.
 
@@ -51,14 +52,17 @@ Run the command:
 If you have made some changes in the config file (.\inst\app\config\config.json) apply these changes also to the config file in the new version. Please don’t overwrite the new version of this file with the old version (some new config options were added).
 
 ## Limitations / known bugs
-- If you end the RobotTool without terminating the server that runs on the background you will get an 
+- If you end the RobotTool without terminating the server process you will get an error if you start it again. The solution is to end the respective node process running in the background.
 
-## License and feedback
+## Suggestions
+Questions, suggestions, ideas are welcome: 
+- The GitHub way: send us a [pull request](https://help.github.com/articles/creating-a-pull-request/) to add directly to this list.
+- Add an item to the [issue tracker](https://github.com/SNStatComp/RobotTool/issues) issue tracker. (you need a GH account)
+- Send an e-mail to `o dot tenbosch at cbs dot nl` or `d dot windmeijer at cbs dot nl` or tweet [\@kobosch](https://twitter.com/kobosch)
+
+## License
 This tool is provided under an EUPL license on an ‘as is’ basis and without warranties of any kind (see license file).
-Other organisations are invited to use it.
-Feedback is appreciated (by email or by adding an issue ticket on this repo).
-
 
 ## Credits
-The development of this tool was partly subsidized by a Grant from Eurostat. Previous versions were published at our
-[research server](http://research.cbs.nl/Projects/RobotTool).
+The development of this tool would not have been possible without the active involvement over many years by many price analysts from the price department of Statistics Netherlands.
+Also, early versions of this tool still available at our [research server](http://research.cbs.nl/Projects/RobotTool) were partly subsidized by a Grant from Eurostat.
