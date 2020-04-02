@@ -1,0 +1,6 @@
+"productgroup";"description";"productgroupComment";"source";"name";"address";"url";"is_active";"comment";"note1";"note2";"note3";"note4";"note5";"currency";"path";"step_no";"step_type";"parameter"
+"1";"Bikes";"Example 1: bikes";"1";"Mountainbike 'Downhill speedy'";"";"https://snstatcomp.github.io/webscrapingtests/RobotTool/";"1";"";"";"";"";"";"";"NL (EUR)";"//*[@id='price3']";"1";"C";""
+"1";"Bikes";"Example 1: bikes";"2";"Mountainbike 'Downhill speedy' complete row";"";"https://snstatcomp.github.io/webscrapingtests/RobotTool/";"1";"";"";"";"";"";"";"NL (EUR)";"/html/body/table[1]/tbody/tr[4]";"1";"C";""
+"1";"Bikes";"Example 1: bikes";"3";"Mountainbike 'Easy going'";"";"https://snstatcomp.github.io/webscrapingtests/RobotTool/";"1";"";"";"";"";"";"";"NL (EUR)";"//*[@id='price4']";"1";"C";""
+"1";"Bikes";"Example 1: bikes";"4";"Boys bike 'Ben'";"";"https://snstatcomp.github.io/webscrapingtests/RobotTool/";"1";"";"";"";"";"";"";"NL (EUR)";"//*[@id='pricekid2']";"1";"C";""
+"1";"Bikes";"Example 1: bikes";"5";"Girls bike 'Jenny'";"";"https://snstatcomp.github.io/webscrapingtests/RobotTool/";"1";"";"";"";"";"";"";"NL (EUR)";"//*[@id='pricekid3']";"1";"C";""

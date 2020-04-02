@@ -1,3 +1,0 @@
-"productgroup";"description";"productgroupComment";"source";"name";"address";"url";"is_active";"comment";"note1";"note2";"note3";"note4";"note5";"currency";"path";"step_no";"step_type";"parameter"
-"2";"Children bikes";"Bikes for children";"10";"Ben";"";"https://snstatcomp.github.io/webscrapingtests/RobotTool/";"1";"";"";"";"";"";"";"NL (EUR)";"//*[@id='pricekid2']";"1";"C";""
-"2";"Children bikes";"Bikes for children";"11";"Jenny";"";"https://snstatcomp.github.io/webscrapingtests/RobotTool/";"1";"";"";"";"";"";"";"NL (EUR)";"//*[@id='pricekid3']";"1";"C";""

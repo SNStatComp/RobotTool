@@ -1,4 +1,0 @@
-"productgroup";"description";"productgroupComment";"source";"name";"address";"url";"is_active";"comment";"note1";"note2";"note3";"note4";"note5";"currency";"path";"step_no";"step_type";"parameter"
-"1";"Mountainbikes";"Bikes for in the mountains";"1";"Downhill speedy";"";"https://snstatcomp.github.io/webscrapingtests/RobotTool/";"1";"";"";"";"";"";"";"NL (EUR)";"//*[@id='price3']";"1";"C";""
-"1";"Mountainbikes";"Bikes for in the mountains";"2";"Downhill speedy complete row";"";"https://snstatcomp.github.io/webscrapingtests/RobotTool/";"1";"";"";"";"";"";"";"NL (EUR)";"/html/body/table[1]/tbody/tr[4]";"1";"C";""
-"1";"Mountainbikes";"Bikes for in the mountains";"3";"Easy going";"";"https://snstatcomp.github.io/webscrapingtests/RobotTool/";"1";"";"";"";"";"";"";"NL (EUR)";"//*[@id='price4']";"1";"C";""

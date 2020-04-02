@@ -25,17 +25,18 @@ The analyst typically repeats this proces on a regular basis, per week or month,
 ```bash
   $ npm install
 ```
-- Start the tool from the command line. A webserver will be started and a browser window pop up. 
-Start application:
+- Start the tool from the command line. A webserver will be started and a browser window pop up:
 ```bash
   $ npm start
 ```
 
-## Quickstart
-The folder `Examples` contains some example configuration files.
-These configuration files can be loaded using the `Edit` button in the Products panel and the `Import configuration` button in the panel that opens next.
+## Examples
+The folder `Examples` contains a number example configuration files working on [this testsite](https://snstatcomp.github.io/webscrapingtests/RobotTool/).
+These files can be loaded via the `Edit` button in the Products panel and the `Import configuration` button thereafter.
 
-These example configurations shoow an example collecting prices for mountainbikes and children bikes from [this testsite](https://snstatcomp.github.io/webscrapingtests/RobotTool/)
+- Example 1 shows a number of mountainbikes and children bikes by id
+
+More examples might be added later
 
 See the user guides in the `/doc` folder for a more extensive description of the functionality and use of the tool.
 
