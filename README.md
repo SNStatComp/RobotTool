@@ -19,13 +19,14 @@ The analyst **checks** all **products with status red**:
 
 The analyst typically repeats this proces on a regular basis, per week or month, for example in the proces to compose the HICP.
 
-## Installation and start
+## Installation
 - Install [node.js](https://nodejs.org/en/) and a modern browser (Mozilla Firefox or Google Chrome)
 - Download the RobotTool, unzip it, and run from the command line in the extracted folder: 
 ```bash
   $ npm install
 ```
-- Start the tool from the command line. A webserver will be started and a browser window pop up:
+## Start
+Start the tool from the command line. A webserver will be started and a browser window will pop up.
 ```bash
   $ npm start
 ```
