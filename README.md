@@ -21,7 +21,7 @@ The analyst typically repeats this proces on a regular basis, per week or month,
 
 ## Installation
 - Install [node.js](https://nodejs.org/en/) and a modern browser (Mozilla Firefox or Google Chrome)
-- Download the RobotTool, unzip it, and run from the command line in the extracted folder: 
+- Download the RobotTool, unzip it, and in the extracted folder run from the command line: 
 ```bash
   $ npm install
 ```
@@ -39,7 +39,7 @@ Example 1 shows the collection of prices of bikes from [this testsite](https://s
 Here is a [screenshot](example1.png)
 
 ## Documentation
-See the user guides in the `/doc` folder for a more extensive description of the functionality and use of the tool. The screenshots in these docs were taken using an earlier version, but the working of the tool is pretty much the same.
+See the documents in the `/doc` folder for a more extensive description of the functionality and use of the tool. The screenshots in those documents were taken using an earlier version, but the working of the tool is pretty much the same.
 
 ## Upgrading
 When you upgrade from an earlier version of the RobotTool and want to re-use your existing database, copy the file observationDB.sqlite in the folder ‘inst/server/db’ to the same folder in the new version.
