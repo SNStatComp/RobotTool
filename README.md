@@ -33,17 +33,20 @@ Run from the command line:
 A webserver will be started and a browser window will pop up.
 
 ## Examples
-The folder `Examples` contains some example configuration files that you can load into the tool via the `Edit` -> `Import configuration` button from the products panel.
+The folder `Examples` contains an example configuration files that you can load into the tool via the `Edit` -> `Import configuration` button from the products panel.
 
-Example 1 shows the collection of prices of bikes from [this testsite](https://snstatcomp.github.io/webscrapingtests/RobotTool/).
-Here is a [screenshot](example1.png)
+The example shows the definition of some bikes for which prices are to be collected from [this testsite](https://snstatcomp.github.io/webscrapingtests/RobotTool/).
+The prices on this testsite are dynamic: they change once on a while upon new visits. 
+When pressing the 'Get new priceinfo' button on the right upper corner the tool will collect prices from the testsite.
+You can then manually initialize the price from the 'price' field in the panel that pops up after pressing one of the red boxes.
+After retrieving new data using the 'Get new priceinfo' the changes will become visible.
+Here is a [screenshot](example1.png) of the tool after the first run.
 
 ## Documentation
 See the documents in the `/doc` folder for a more extensive description of the functionality and use of the tool. The screenshots in those documents were taken using an earlier version, but the working of the tool is pretty much the same.
 
 ## Upgrading
-When you upgrade from an earlier version of the RobotTool and want to re-use your existing database, copy the file observationDB.sqlite in the folder ‘inst/server/db’ to the same folder in the new version.
-When you upgrade from Robottool version < 3 you also have to upgrade the database.
+When you upgrade from Robottool version < 4.0.0 you have to upgrade the database.
 
 Run the command:
 ```bash
@@ -53,12 +56,13 @@ Run the command:
 If you have made some changes in the config file (.\inst\app\config\config.json) apply these changes also to the config file in the new version. Please don’t overwrite the new version of this file with the old version (some new config options were added).
 
 ## Limitations / known bugs
-- If you end the RobotTool without terminating the webserver process you will get an error if you start it again. The solution is to end the respective node process running in the background.
+- This tool uses a headless version of your browser (usually FireFox). Upon exit of the tool the headless browser process keep running in the background until you explicitly stop it (using the task manager) or restart your computer.
 
 ## Suggestions
 Questions, suggestions, ideas are welcome: 
 - Add an item to the [issue tracker](https://github.com/SNStatComp/RobotTool/issues) issue tracker (you need a GH account).
 - Send us a [pull request](https://help.github.com/articles/creating-a-pull-request/) if you have an improvement you think is valuable to all.
+- Send an e-mail to `o dot tenbosch at cbs dot nl` or `hjm dot windmeijer at cbs dot nl`.
 
 ## License
 This tool is provided under an EUPL license on an ‘as is’ basis and without warranties of any kind (see [license file](./LICENSE)).
