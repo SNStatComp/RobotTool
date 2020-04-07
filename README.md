@@ -33,13 +33,13 @@ Run from the command line:
 A webserver will be started and a browser window will pop up.
 
 ## Examples
-The folder `Examples` contains an example configuration files that you can load into the tool via the `Edit` -> `Import configuration` button from the products panel.
+The folder `ImportExport` contains an example configuration file `Example_1_bikes.csv` that you can load into the tool via the `Edit` -> `Import configuration` button from the products panel.
 
 The example shows the definition of some bikes for which prices are to be collected from [this testsite](https://snstatcomp.github.io/webscrapingtests/RobotTool/).
-The prices on this testsite are dynamic: they change once on a while upon new visits. 
-When pressing the 'Get new priceinfo' button on the right upper corner the tool will collect prices from the testsite.
+The prices on the testsite are dynamic: some of them change when retrieving the page again. 
+When pressing the `Get new priceinfo` button on the right upper corner the tool will collect prices from the testsite.
 You can then manually initialize the price from the 'price' field in the panel that pops up after pressing one of the red boxes.
-After retrieving new data using the 'Get new priceinfo' the changes will become visible.
+After retrieving new data using the `Get new priceinfo` the changes will become visible.
 Here is a [screenshot](example1.png) of the tool after the first run.
 
 ## Documentation
