@@ -8,5 +8,6 @@
     "Headless": "firefox",
     "proxy": "",
     "database": "observationDB.sqlite",
+    "OneObservationPerDay": false,
     "proxy_auth": ""
 }

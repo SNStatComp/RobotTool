@@ -37,6 +37,7 @@ var sqlite3 = require('sqlite3').verbose(),
 
 var init = function(paths, cfg) {
   config = cfg
+  _.defaults(config, {'OneObservationPerDay': true})
   serverMessages = require('./../app/locales/translation-' + cfg.Language + '.json').Server;
   if (cfg.mode === 'server') {
     db = new sqlite3.Database(paths.data + '/' +cfg.database);
@@ -844,7 +845,7 @@ var insertObservationSource = function(result) {
       }
       // finally insert the new observation into the database
       // insert when runs for the first time on a day otherwise an update
-      if (newObsDate == oldObsDate && oldObsDate != '' && config.Language == 'nl') {
+      if (newObsDate == oldObsDate && oldObsDate != '' && config.OneObservationPerDay) {
         sql =
           'UPDATE Observation SET ' +
             'value = "' + newValue + '",' +
