@@ -9,27 +9,28 @@
     "url": "https://github.com/SNStatComp/RobotTool.git"
   },
   "dependencies": {
-    "body-parser": "^1.18.0",
+    "body-parser": "^1.19.0",
     "cheerio": "^0.22.0",
-    "chrome-finder": "^1.0.3",
-    "chromedriver": "^2.38.3",
+    "chrome-finder": "^1.0.6",
+    "chromedriver": "^2.46.0",
     "co": "^4.6.0",
-    "connect": "^3.6.6",
+    "connect": "^3.7.0",
     "downloader": "file:./inst/lib/downloader-1.0.1.tgz",
     "env-paths": "^1.0.0",
-    "fast-csv": "^2.4.0",
+    "fast-csv": "^2.5.0",
     "geckodriver": "^1.19.1",
     "hasha": "^3.0.0",
     "i18next": "^10.6.0",
+    "kill-port": "^1.6.0",
     "lodash": "^4.17.15",
-    "moment": "^2.22.1",
-    "mustache": "^2.3.0",
-    "opn": "^5.3.0",
-    "qs": "^6.5.2",
+    "moment": "^2.24.0",
+    "mustache": "^2.3.2",
+    "opn": "^5.5.0",
+    "qs": "^6.9.3",
     "selenium-webdriver": "^3.5.0",
-    "serve-static": "^1.13.2",
-    "socket.io": "^2.1.1",
-    "sqlite3": "^4.0.9"
+    "serve-static": "^1.14.1",
+    "socket.io": "^2.3.0",
+    "sqlite3": "^4.1.1"
   },
   "engines": {
     "node": ">11.0.0"
@@ -39,10 +40,12 @@
     "upgradeDB": "node inst/server/upgradeDB.js"
   },
   "devDependencies": {
-    "eslint": "^3.17.1",
-    "eslint-config-standard": "^7.0.1",
-    "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-react": "^6.10.0",
-    "eslint-plugin-standard": "^2.1.1"
+    "eslint": "^6.0.0",
+    "eslint-config-standard": ">=14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": ">=4.0.0",
+    "eslint-plugin-react": ">=7.0.0",
+    "eslint-plugin-standard": ">=4.0.1"
   }
 }
