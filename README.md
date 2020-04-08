@@ -35,15 +35,20 @@ A webserver will be started and a browser window will pop up.
 ## Examples
 The folder `ImportExport` contains an example configuration file `Example_1_bikes.csv` that you can load into the tool via the `Edit` -> `Import configuration` button from the products panel.
 
-The example shows the definition of some bikes for which prices are to be collected from [this testsite](https://snstatcomp.github.io/webscrapingtests/RobotTool/).
-The prices on the testsite are dynamic: some of them change when retrieving the page again. 
-When pressing the `Get new priceinfo` button on the right upper corner the tool will collect prices from the testsite.
+The example shows several ways to retrieve data from two fake webshops, *ABC_Bikes* and *Cheap_Bikes*  [ABC_Bikes](https://snstatcomp.github.io/webscrapingtests/RobotTool/ABC_Bikes) and [Cheap_Bikes](https://snstatcomp.github.io/webscrapingtests/RobotTool/Cheap_Bikes).
+The prices on the Cheap_Bikes webshop are dynamic: some of them change when retrieving the page again. 
+
+When pressing the `Get new priceinfo` button on the right upper corner the tool will collect prices from the fake webshops.
 You can then manually initialize the price from the 'price' field in the panel that pops up after pressing one of the red boxes.
 After retrieving new data using the `Get new priceinfo` the changes will become visible.
-Here is a [screenshot](example1.png) of the tool after the first run.
+Here is a [screenshot](example1.png) of the tool after the first run (TODO new screenshot).
 
 ## Documentation
 See the documents in the `/doc` folder for a more extensive description of the functionality and use of the tool. The screenshots in those documents were taken using an earlier version, but the working of the tool is pretty much the same.
+
+The tool can be configured via the `config.json` file in the `inst/app/config` folder.
+This folder contains an explanation file `config.json.explanation.txt` which documents the settings.
+Note that the folder from which you read configuration files need to be set explicitly here to read configuration files. 
 
 ## Upgrading
 When you upgrade from Robottool version < 4.0.0 you have to upgrade the database.
