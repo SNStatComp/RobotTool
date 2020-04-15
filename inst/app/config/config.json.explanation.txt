@@ -1,13 +1,13 @@
 {
-    "Username": "USER", // default username
-    "Language": "en",  // defualt language for requests
-    "Locale": "nl-NL", // default locale used by the headless browser
-    "ExportFolder": "./ImportExport/", // export and inport folder for configurations (csv) and data (csv)
-    "port": 9033, // default port used by user interface
+    "Username": "USER",                // User identification string, written to the csv on data export
+    "Language": "en",                  // default language for user interface
+    "Locale": "nl-NL",                 // default locale used for price currency detection
+    "ExportFolder": "./ImportExport/", // Export and import folder for configurations (csv) and data (csv)
+    "port": 9033,                      // default port used by user interface
     "Browser": "c:/Program Files/Mozilla Firefox/firefox.exe", // default browser to start for user interface
-    "Headless": "firefox", // default headless browser to use for scraping
-    "proxy": "", // set a proxy address if you your headless browser needs to go to Internet via a proxy
-    "database": "observationDB.sqlite", // default sqlite database to use
-    "OneObservationPerDay": false,  // If true the tool stores only the last observation in the database. Any new observation at the same day overwrites the previous.
-    "proxy_auth": "" // ????
+    "Headless": "firefox",             // default headless browser to use for scraping, alternative: 'chrome'
+    "proxy": "",                       // set a proxy address if your headless browser needs to go to Internet via a proxy
+    "database": "observationDB.sqlite",// default sqlite database to use
+    "OneObservationPerDay": false,     // If true the tool stores only the last observation in the database per day.
+    "proxy_auth": ""                   // not used
 }
