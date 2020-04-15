@@ -32,16 +32,20 @@ Run from the command line:
 ```
 A webserver will be started and a browser window will pop up.
 
-## Examples
-The folder `ImportExport` contains an example configuration file `Example_1_bikes.csv` that you can load into the tool via the `Edit` -> `Import configuration` button from the products panel.
+## Example
+The folder `ImportExport` contains an example configuration file `Example_1_bikes.csv`.
+You can load this configuration into the RobotTool via the `Edit` -> `Import configuration` button from the products panel.
 
-The example shows several ways to retrieve data from two fake webshops, *ABC_Bikes* and *Cheap_Bikes*  [ABC_Bikes](https://snstatcomp.github.io/webscrapingtests/RobotTool/ABC_Bikes) and [Cheap_Bikes](https://snstatcomp.github.io/webscrapingtests/RobotTool/Cheap_Bikes).
+The example shows several ways to retrieve data from two **fake webshops**:
+- [ABC_Bikes](https://snstatcomp.github.io/webscrapingtests/RobotTool/ABC_Bikes)
+- [Cheap_Bikes](https://snstatcomp.github.io/webscrapingtests/RobotTool/Cheap_Bikes)
 The prices on the Cheap_Bikes webshop are dynamic: some of them change when retrieving the page again. 
 
 When pressing the `Get new priceinfo` button on the right upper corner the tool will collect prices from the fake webshops.
 You can then manually initialize the price from the 'price' field in the panel that pops up after pressing one of the red boxes.
 After retrieving new data using the `Get new priceinfo` the changes will become visible.
-Here is a [screenshot](example1.png) of the tool after the first run (TODO new screenshot).
+
+This is a [screenshot](example1.png) of the tool after sum runs.
 
 ## Documentation
 See the documents in the `/doc` folder for a more extensive description of the functionality and use of the tool. The screenshots in those documents were taken using an earlier version, but the working of the tool is pretty much the same.
