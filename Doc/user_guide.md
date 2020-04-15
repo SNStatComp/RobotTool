@@ -4,11 +4,12 @@
 Version 4.0.0, 15 April 2020
 
 ## Introduction
-The RobotTool is s tool for detecting (price) changes on webpages created and used by [Statistics Netherlands](https://www.cbs.nl/en-gb) for price statistics. 
-An international version of the tool is maintained at 
-https://github.com/SNStatComp/RobotTool.
-This user guide explains the most important operational features of the tool.
-Suggestions for improvements are welcome, see instructions for suggestions [here](../README.md).
+The RobotTool is a tool for detecting (price) changes on webpages.
+It is developed by [Statistics Netherlands](https://www.cbs.nl/en-gb) and actively used in the production of price statistics. 
+An international version of the RobotTool is maintained in this repository. 
+
+This user guide explains the most important features of the tool.
+Suggestions for improvements are always welcome following the guidelines in the [README](../README.md).
 
 ### Main window
 You start the RobotTool by executing the file ‘robottool.bat’ (on windows) or typing ‘npm start’ in a command window in the RobotTool folder. After the start of the RobotTool a browser window will popup wih the main user interface. This is how it looks after loading the example on collecting data from fake bike shops which is provided in the release of the tool:
@@ -30,17 +31,6 @@ The RobotTool uses one type of data grid consistently over its user interface, w
 
 ![sort](img/Main_Sort.png)
 
-
- ### Xpath expressions
- The RobotTool uses the [XPath](https://www.w3.org/TR/1999/REC-xpath-19991116/) language to configure the navigation path through websites and to define the exact position on the webpage of the product (the price context).
- The average user doesn't need to learn the XPath language. Most of the expressions needed in daily practice have a specific form, for example selecting a price with a specific class name or HTML id. 
- An even more easy way to get the XPath expressions needed to configure products is to use your browsers' developer tools (usually F12 in your browser) to genetare the XPath expression for you.
-
- Some resources that are useful in case you want to learn more about XPath are:
-- https://www.w3schools.com/xml/xpath_intro.asp 
-- https://devhints.io/xpath
-- https://blog.scrapinghub.com/2016/10/27/an-introduction-to-xpath-with-examples
-- https://www.tutorialspoint.com/xpath
 
 
 ## Product groups
@@ -136,6 +126,17 @@ Click | Click on the selected element. | XPath: /html/body/div/a
 Wait | If the field Xpath is empty the robot waits a number of milliseconds as specified in the Parameter field. If the field Xpath is not empty the robot waits until the selected element is visible by the robot or a timeout occurs. The timeout value (in milliseconds) is taken from the Parameter field. Default: 10000 (10 seconds) | Parameter: 1000
 mouseMove | Move the mouse pointer to the selected element. Use this option when an element you are interested in is a part of a popup menu. |
 Download | Download the file referred to in the selected element. If the element is an hyperlink (a) then the href attribute is used, if the tag is an image (img) then the src attribute is used. For this file a hash is computed and saved in the context.
+
+The [XPath](https://www.w3.org/TR/1999/REC-xpath-19991116/) language is an international standard.
+The average user doesn't need to learn the details of the XPath language to work with the RobotTool.
+Most of the expressions needed in daily practice have a specific syntax, for example selecting a price with a specific class name or via the documents hierarchy or via an HTML id.
+An even more easy way to get the XPath expressions needed to configure products is to use your browsers' developer tools (usually F12 in your browser) to generate the XPath expression for you.
+
+Some resources that are useful in case you want to learn more about XPath are:
+- https://www.w3schools.com/xml/xpath_intro.asp 
+- https://devhints.io/xpath
+- https://blog.scrapinghub.com/2016/10/27/an-introduction-to-xpath-with-examples
+- https://www.tutorialspoint.com/xpath
 
 
 ### Testing XPaths
