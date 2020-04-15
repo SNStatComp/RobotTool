@@ -39,13 +39,14 @@ You can load this configuration into the RobotTool via the `Edit` -> `Import con
 The example shows several ways to retrieve data from two **fake webshops**:
 - [ABC_Bikes](https://snstatcomp.github.io/webscrapingtests/RobotTool/ABC_Bikes)
 - [Cheap_Bikes](https://snstatcomp.github.io/webscrapingtests/RobotTool/Cheap_Bikes)
+
 The prices on the Cheap_Bikes webshop are dynamic: some of them change when retrieving the page again. 
 
 When pressing the `Get new priceinfo` button on the right upper corner the tool will collect prices from the fake webshops.
 You can then manually initialize the price from the 'price' field in the panel that pops up after pressing one of the red boxes.
 After retrieving new data using the `Get new priceinfo` the changes will become visible.
 
-This is a [screenshot](example1.png) of the tool after sum runs.
+This is a [screenshot](example1.png) of the tool after some runs.
 
 ## Documentation
 See the documents in the `/doc` folder for a more extensive description of the functionality and use of the tool. The screenshots in those documents were taken using an earlier version, but the working of the tool is pretty much the same.
