@@ -46,7 +46,9 @@ When pressing the `Get new priceinfo` button on the right upper corner the tool 
 You can then manually initialize the price from the 'price' field in the panel that pops up after pressing one of the red boxes.
 After retrieving new data using the `Get new priceinfo` the changes will become visible.
 
-This is a [screenshot](example1.png) of the tool after some runs.
+This is a of the tool after some runs:
+
+![screenshot](example1.png)
 
 ## Documentation
 See the documents in the `/doc` folder for additional documentation:
