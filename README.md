@@ -52,8 +52,8 @@ This is a screenshot of the tool after some runs:
 
 ## Documentation
 See the documents in the `/doc` folder for additional documentation:
-- [user guide](Doc/20200415_Robottool_User_guide_EN.pdf)
-- [poster](Doc/20200407_RobotTool_Poster.pdf)
+- *RobotTool User Guide* [online](Doc/user_guide.md) | [pdf](Doc/user_guide.pdf)
+- *Poster* [pdf](Doc/20200407_RobotTool_Poster.pdf)
 
 ## Upgrading
 When you upgrade from Robottool version < 4.0.0 you have to upgrade the database.
