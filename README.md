@@ -49,11 +49,9 @@ After retrieving new data using the `Get new priceinfo` the changes will become 
 This is a [screenshot](example1.png) of the tool after some runs.
 
 ## Documentation
-See the documents in the `/doc` folder for a more extensive description of the functionality and use of the tool. The screenshots in those documents were taken using an earlier version, but the working of the tool is pretty much the same.
-
-The tool can be configured via the `config.json` file in the `inst/app/config` folder.
-This folder contains an explanation file `config.json.explanation.txt` which documents the settings.
-Note that the folder from which you read configuration files need to be set explicitly here to read configuration files. 
+See the documents in the `/doc` folder for additional documentation:
+- [user guide](Doc/20200415_Robottool_User_guide_EN.pdf)
+- [poster](Doc/20200407_RobotTool_Poster.pdf)
 
 ## Upgrading
 When you upgrade from Robottool version < 4.0.0 you have to upgrade the database.
