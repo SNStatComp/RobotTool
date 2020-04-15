@@ -50,10 +50,13 @@ This is a screenshot of the tool after some runs:
 
 ![screenshot](example1.png)
 
-## Documentation
-See the documents in the `/doc` folder for additional documentation:
-- *RobotTool User Guide* [online](Doc/user_guide.md) | [pdf](Doc/user_guide.pdf)
-- *Poster* [pdf](Doc/20200407_RobotTool_Poster.pdf)
+## RobotTool user guide
+The RobotTool user guide contains a more detailed description of the functionality of the tool, the import and export of configuration and prices, to work with XPaths and how to configure the tool.
+It is available in two versions in de `/Doc` folder of this repo:
+- [online version](Doc/user_guide.md)
+- [pdf version](Doc/user_guide.pdf)
+  
+In addition there is a *Poster* [pdf](Doc/20200407_RobotTool_Poster.pdf)
 
 ## Upgrading
 When you upgrade from Robottool version < 4.0.0 you have to upgrade the database.
