@@ -3,6 +3,23 @@
 # RobotTool User Guide
 Version 4.0.0, 15 April 2020
 
+- [RobotTool User Guide](#robottool-user-guide)
+  - [Introduction](#introduction)
+    - [Main window](#main-window)
+    - [Product groups and respondents](#product-groups-and-respondents)
+    - [Data grid](#data-grid)
+  - [Product groups](#product-groups)
+  - [Respondents](#respondents)
+  - [XPath scraping steps](#xpath-scraping-steps)
+    - [Configuring XPaths](#configuring-xpaths)
+    - [Testing XPaths](#testing-xpaths)
+  - [Data collection and processing](#data-collection-and-processing)
+    - [Starting data collection](#starting-data-collection)
+    - [Checking products with status red](#checking-products-with-status-red)
+    - [Exporting prices](#exporting-prices)
+  - [SQLite Database](#sqlite-database)
+  - [RobotTool configuration](#robottool-configuration)
+
 ## Introduction
 The RobotTool is a tool for detecting (price) changes on webpages.
 It is developed by [Statistics Netherlands](https://www.cbs.nl/en-gb) and actively used in the production of price statistics. 
