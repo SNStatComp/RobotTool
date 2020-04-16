@@ -166,9 +166,9 @@ There are two buttons for testing the XPath expressions, highlighted in the scre
 
 - The button on the right will show you the *part of the respondent’s web page* that is the result of applying all steps / XPaths up to the current one. This is called the *price context*. Below are two examples of what you might get, depening on the configuration of the product, the webpage, the XPath expression etc.:
 
-![respondentsXPaths4](img/RespondentsXPathsPricecontext1.png)
+![respondentsXPaths4](img/RespondentsXPathsPriceContext1.png)
 
-![respondentsXPaths5](img/RespondentsXPathsPricecontext2.jpg)
+![respondentsXPaths5](img/RespondentsXPathsPriceContext2.jpg)
 
 
 ## Data collection and processing
