@@ -75,7 +75,7 @@ If you have made some changes in the config file (.\inst\app\config\config.json)
 Questions, suggestions, ideas are welcome: 
 - Add an item to the [issue tracker](https://github.com/SNStatComp/RobotTool/issues) issue tracker (you need a GH account).
 - Send us a [pull request](https://help.github.com/articles/creating-a-pull-request/) if you have an improvement you think is valuable to all.
-- Send an e-mail to `o dot tenbosch at cbs dot nl` or `hjm dot windmeijer at cbs dot nl`.
+- Send an e-mail to `o.tenbosch <at> cbs.nl` or `hjm.windmeijer <at> cbs.nl`.
 
 ## License
 This tool is provided under an EUPL license on an ‘as is’ basis and without warranties of any kind (see [license file](./LICENSE)).
