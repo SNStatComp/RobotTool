@@ -77,6 +77,14 @@ Questions, suggestions, ideas are welcome:
 - Send us a [pull request](https://help.github.com/articles/creating-a-pull-request/) if you have an improvement you think is valuable to all.
 - Send an e-mail to `o.tenbosch <at> cbs.nl` or `hjm.windmeijer <at> cbs.nl`.
 
+## References
+The ideas and concepts behind webscraping for official statistics are described in the following publications:
+-  [Web scraping meets survey design: combining forces](https://www.bigsurv18.org/conf18/uploads/73/61/20180820_BigSurv_WebscrapingMeetsSurveyDesign.pdf), O. ten Bosch et al., BIGSURV18 Conference, 2 september 2018
+-  [On the use of Internet data for the Dutch CPI](http://www.unece.org/fileadmin/DAM/stats/documents/ece/ces/ge.22/2016/Session_2_Netherlands_on_the_use_of_internet_data_for_the_Dutch_CPI.pdf), R. Griffioen and O. ten Bosch, Meeting ofthe Group of Experts on Consumer Price Indices (2016)
+-  [On the use of internet robots for official statistics](http://www.unece.org/fileadmin/DAM/stats/documents/ece/ces/ge.50/2014/Topic_3_NL.pdf), O. ten Bosch and D. Windmeijer, UNECE MSIS 2014
+-  [Automated data collection from web sources for official statistics: First experiences](https://www.iospress.nl/journal/statistical-journal-of-the-iaos/), R. Hoekstra, O. ten Bosch, F. Harteveld, Statistical Journal of the IAOS, Volume 28, Number 3-4 / 2012, p. 99-111, mrt. 2013
+
+
 ## License
 This tool is provided under an EUPL license on an ‘as is’ basis and without warranties of any kind (see [license file](./LICENSE)).
 
