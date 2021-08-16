@@ -46,7 +46,7 @@ define(libs, function($, io, i18next, XHR, init, utils) {
       //aaa = i18next.t(utils.getConfig().database),
       //database_user:  config.database,
       //database_user: 'Lucie_en_Dick',
-      copyright: 'Copyright \u00A9 2015 - 2019 CBS, Statistics Netherland'
+      copyright: 'Copyright \u00A9 2015 - 2020 CBS, Statistics Netherland'
     };
 
     /**

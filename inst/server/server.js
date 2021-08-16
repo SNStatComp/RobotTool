@@ -32,6 +32,7 @@ var connect = require('connect'),
   mkdirp = require('mkdirp'),
   envPaths = require('env-paths'),
   path = require('path'),
+  kill = require('kill-port'),
   paths = envPaths('Robottool'),
   config,
   userconfig = require('./../app/config/config.json'),
@@ -228,23 +229,44 @@ var app = connect()
     }
   });
 
-var server = http.createServer(app);
-server.timeout = 0;
-
-server.listen(
-  config.port || 0,
-  function () {
+  var start_browser = function() {
     if (config.Browser) {
-      open('http://localhost:' + server.address().port, {app: config.Browser})
+      open('http://localhost:' + config.port, {app: config.Browser})
       .catch(function (err) {
-        //console.log(serverMessages.NoBrowser + config.Browser)
+        console.log(serverMessages.NoBrowser + config.Browser)
         server.close()
       });
     } else {
-      open('http://localhost:' + server.address().port)
+      open('http://localhost:' + config.port)
     }
   }
-);
+  
+var server = http.createServer(app);
+server.timeout = 0;
+
+server.on('error', function(err) {
+  if (err.errno = 'EADDRINUSE') {
+    server.close(function () {
+      kill(err.port, 'tcp')
+      .then(function() {
+        console.log('Starting server ...')
+        setTimeout(function () {
+          server.listen(
+            config.port || 0
+          )      
+        },
+        2000)
+       })  
+    })
+  }
+})
+
+server.on('listening', function() {
+  start_browser()
+})
+process.stdin.resume()
+
+server.listen(config.port || 0)
 
 robotDB.init(paths, config);
 webData.init(server, config);

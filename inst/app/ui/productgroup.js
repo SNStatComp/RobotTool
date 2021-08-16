@@ -80,11 +80,11 @@ define([
     var strImportConfig = i18next.t('Productgroup.ImportConfig'),
       dlgImport = $('div#importProductgroup')
         .html('<div><button id="btn_myFileInput">' +
-          i18next.t('Productgroup.Browse') +
-          '</button> File: <label id="lbl_myFileInput" for="btn_myFileInput">' +
-          i18next.t('Productgroup.BrowseText') +
-          '</label><input type="file" id="configFile" style="visibility:hidden;" /></div>'
-        )
+            i18next.t('Productgroup.Browse') +
+            '</button> File: <label id="lbl_myFileInput" for="btn_myFileInput">' +
+            i18next.t('Productgroup.BrowseText') +
+            '</label><input type="file" id="configFile" style="visibility:hidden;" /></div>'
+          )
         .dialog({
           autoOpen: false,
           title: strImportConfig,
@@ -97,7 +97,7 @@ define([
               click: function() {
                 $.get('/data', {
                   action: 'importConfiguration',
-                  fileName: $('#configFile').val(),
+                  fileName: $('label#lbl_myFileInput').text(),
                   exportFolder: utils.getConfig().ExportFolder
                 }, function(data) {
                   alert(data);
@@ -122,7 +122,7 @@ define([
     });
 
     $('input#configFile').change(function() {
-      $('label#lbl_myFileInput').text($('input#configFile').val());
+      $('label#lbl_myFileInput').text(this.files[0].name);
     });
 
     dlgImport.dialog('open');

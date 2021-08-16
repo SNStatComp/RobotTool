@@ -21,9 +21,9 @@
  */
 
 define([
-  "app/Observation",
-  "app/SourcePath",
-  "app/Chart",
+  "app/observation",
+  "app/sourcepath",
+  "app/chart",
   "app/utils",
   "app/summary",
   "app/taxupdate",

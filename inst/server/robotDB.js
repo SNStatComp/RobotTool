@@ -31,13 +31,16 @@ var sqlite3 = require('sqlite3').verbose(),
   co = require('co'),
   webData = require('./webData.js'),
   db,
-  serverMessages;
+  serverMessages,
+  config;
 
 
-var init = function(paths, config) {
-  serverMessages = require('./../app/locales/translation-' + config.Language + '.json').Server;
-  if (config.mode === 'server') {
-    db = new sqlite3.Database(paths.data + '/' +config.database);
+var init = function(paths, cfg) {
+  config = cfg
+  _.defaults(config, {'OneObservationPerDay': true})
+  serverMessages = require('./../app/locales/translation-' + cfg.Language + '.json').Server;
+  if (cfg.mode === 'server') {
+    db = new sqlite3.Database(paths.data + '/' +cfg.database);
   } else {
     db = new sqlite3.Database('./inst/server/db/observationDB.sqlite');
   }
@@ -842,7 +845,7 @@ var insertObservationSource = function(result) {
       }
       // finally insert the new observation into the database
       // insert when runs for the first time on a day otherwise an update
-      if (newObsDate == oldObsDate && oldObsDate != '') {
+      if (newObsDate == oldObsDate && oldObsDate != '' && config.OneObservationPerDay) {
         sql =
           'UPDATE Observation SET ' +
             'value = "' + newValue + '",' +
@@ -1055,12 +1058,11 @@ var exportConfiguration = function(qry) {
 
 var importConfiguration = function(qry) {
   return new Promise(function(resolve,reject) {
-    var filename =  qry.fileName,
-  //  filename = qry.exportFolder + qry.fileName,
+  //  var filename =  qry.fileName,
+    var filename = qry.exportFolder + qry.fileName,
       stream = fs.createReadStream(filename, {encoding: 'utf8'}),
       result = [],
       r = '';
-
     stream.on('error', function(err) {
       r = serverMessages.SaveConfigError + filename + ": " + String(err);
       return new Promise(function(resolve,reject) {resolve(r)});

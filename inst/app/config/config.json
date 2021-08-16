@@ -2,11 +2,12 @@
     "Username": "USER",
     "Language": "en",
     "Locale": "nl-NL",
-    "ExportFolder": "./../export/",
+    "ExportFolder": "./ImportExport/",
     "port": 9033,
     "Browser": "c:/Program Files/Mozilla Firefox/firefox.exe",
     "Headless": "firefox",
     "proxy": "",
     "database": "observationDB.sqlite",
+    "OneObservationPerDay": false,
     "proxy_auth": ""
 }
