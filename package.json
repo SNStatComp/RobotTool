@@ -14,24 +14,6 @@
     "chrome-finder": "^1.0.6",
     "chromedriver": "^2.46.0",
     "co": "^4.6.0",
-<<<<<<< HEAD
-    "connect": "^3.6.6",
-    "downloader": "file:./inst/lib/downloader-1.0.2.tgz",
-    "env-paths": "^1.0.0",
-    "fast-csv": "^4.3.6",
-    "geckodriver": "^1.19.1",
-    "hasha": "^3.0.0",
-    "i18next": "^10.6.0",
-    "lodash": "^4.17.21",
-    "moment": "^2.22.1",
-    "mustache": "^2.3.0",
-    "opn": "^5.3.0",
-    "qs": "^6.5.2",
-    "selenium-webdriver": "^3.5.0",
-    "serve-static": "^1.13",
-    "socket.io": "^2.4.0",
-    "sqlite3": "^4.0.9"
-=======
     "connect": "^3.7.0",
     "downloader": "file:./inst/lib/downloader-1.0.1.tgz",
     "env-paths": "^1.0.0",
@@ -49,7 +31,6 @@
     "serve-static": "^1.14.1",
     "socket.io": "^2.3.0",
     "sqlite3": "^4.1.1"
->>>>>>> a1173021b29a42bd26ff01413a076bbb46f6f363
   },
   "engines": {
     "node": ">11.0.0"
