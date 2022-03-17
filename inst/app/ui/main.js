@@ -42,11 +42,8 @@ define(libs, function($, io, i18next, XHR, init, utils) {
 
   var
     infoText = {
-      version: 'v4.0.0',
-      //aaa = i18next.t(utils.getConfig().database),
-      //database_user:  config.database,
-      //database_user: 'Lucie_en_Dick',
-      copyright: 'Copyright \u00A9 2015 - 2020 CBS, Statistics Netherland'
+      version: 'v4.0.1',
+      copyright: 'Copyright \u00A9 2015 - 2022 CBS, Statistics Netherland'
     };
 
     /**
