@@ -3,6 +3,8 @@
 # RobotTool
 Tool for detecting (price) changes on webpages by [Statistics Netherlands](https://www.cbs.nl/en-gb).
 
+Note: As of June 2022, this repo will no longer be updated to reflect changes on the internal CBS production version of the tool. We keep this version here "as is" for whoever wants to use it or borrow from it, but note that security updates were no longer applied.
+
 ## Workflow
 The RobotTool is an interactive tool for price analysts.
 
