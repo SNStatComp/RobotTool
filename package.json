@@ -29,7 +29,7 @@
     "qs": "^6.9.3",
     "selenium-webdriver": "^3.5.0",
     "serve-static": "^1.14.1",
-    "socket.io": "^4.4.0",
+    "socket.io": "^4.5.3",
     "sqlite3": "^4.1.1"
   },
   "engines": {
