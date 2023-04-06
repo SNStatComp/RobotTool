@@ -33,6 +33,7 @@ var sqlite3 = require('sqlite3').verbose(),
   db,
   serverMessages,
   config;
+  
 
 
 var init = function(paths, cfg) {
@@ -1067,9 +1068,9 @@ var importConfiguration = function(qry) {
       r = serverMessages.SaveConfigError + filename + ": " + String(err);
       return new Promise(function(resolve,reject) {resolve(r)});
     });
-//    csv.fromStream(stream, {headers: true, delimiter: ';'}).on('record', function(data) {
+//    csv.parseStream(stream, {headers: true, delimiter: ';'}).on('record', function(data) {
   //    result.push(data);
-    csv.fromStream(stream, {headers: true, delimiter: ';'}).on('data', function(data) {
+    csv.parseStream(stream, {headers: true, delimiter: ';'}).on('data', function(data) {
         result.push(data);
     }).on('error', function(err) {
       console.log('Import config 2')
