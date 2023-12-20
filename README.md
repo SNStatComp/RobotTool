@@ -61,7 +61,7 @@ In addition there is a *Poster* [pdf](Doc/20200407_RobotTool_Poster.pdf)
 - This tool uses a headless version of your browser (usually FireFox). Upon exit of the tool the headless browser process keep running in the background until you explicitly stop it (using the task manager) or restart your computer.
 
 ## Suggestions
-Questions, suggestions, ideas are welcome: 
+Questions, suggestions, ideas are welcome:
 - Add an item to the [issue tracker](https://github.com/SNStatComp/RobotTool/issues) issue tracker (you need a GH account).
 - Send us a [pull request](https://help.github.com/articles/creating-a-pull-request/) if you have an improvement you think is valuable to all.
 - Send an e-mail to `o.tenbosch <at> cbs.nl`.
@@ -73,10 +73,15 @@ The ideas and concepts behind webscraping for official statistics are described 
 -  [On the use of internet robots for official statistics](http://www.unece.org/fileadmin/DAM/stats/documents/ece/ces/ge.50/2014/Topic_3_NL.pdf), O. ten Bosch and D. Windmeijer, UNECE MSIS 2014
 -  [Automated data collection from web sources for official statistics: First experiences](https://www.iospress.nl/journal/statistical-journal-of-the-iaos/), R. Hoekstra, O. ten Bosch, F. Harteveld, Statistical Journal of the IAOS, Volume 28, Number 3-4 / 2012, p. 99-111, mrt. 2013
 
-
 ## License
 This tool is provided under an EUPL license on an ‘as is’ basis and without warranties of any kind (see [license file](./LICENSE)).
 
 ## Credits
-The development of this tool would not have been possible without the active involvement of many price analysts from the price department of Statistics Netherlands.
+Go to Dick Windmeijer, the original developer of this tool, and to many price analysts from the price department of Statistics Netherlands.
 Early versions of this tool were partly subsidized by a Grant from Eurostat. Older versions are still available at our [research server](http://research.cbs.nl/Projects/RobotTool).
+
+## Other software, somehow related:
+- https://github.com/scrapinghub/price-parser
+- https://github.com/kserhii/money-parser
+- https://github.com/BenMagyar/product-info
+- https://grimmdude.com/projects/ Productwatch plugin Chrome
