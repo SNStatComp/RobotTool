@@ -35,22 +35,19 @@ Run from the command line:
 A webserver will be started and a browser window will pop up.
 
 ## Example
-The folder `ImportExport` contains an example configuration file `Example_1_bikes.csv`.
-You can load this configuration into the RobotTool via the `Edit` -> `Import configuration` button from the products panel.
-
-The example shows several ways to retrieve data from two **fake webshops**:
-- [ABC_Bikes](https://snstatcomp.github.io/webscrapingtests/RobotTool/ABC_Bikes)
-- [Cheap_Bikes](https://snstatcomp.github.io/webscrapingtests/RobotTool/Cheap_Bikes)
-
-The prices on the Cheap_Bikes webshop are dynamic: some of them change when retrieving the page again. 
+From release 4.0.1 an example database is preloaded. This database shows several ways to retrieve data from two **fake webshops**:
+- [ABC_Bikes](https://snstatcomp.github.io/webscrapingtests/RobotTool/ABC_Bikes): this site contains static prices
+- [Cheap_Bikes](https://snstatcomp.github.io/webscrapingtests/RobotTool/Cheap_Bikes): this site contains dynamic prices: some of them change when retrieving the page again. 
 
 When pressing the `Get new priceinfo` button on the right upper corner the tool will collect prices from the fake webshops.
 You can then manually initialize the price from the 'price' field in the panel that pops up after pressing one of the red boxes.
-After retrieving new data using the `Get new priceinfo` the changes will become visible.
+After retrieving new data using the `Get new priceinfo` the changes will become visible. For further interaction we refer to the user guide below.
 
 This is a screenshot of the tool after some runs:
 
 ![screenshot](example1.png)
+
+Versions prior to 4.0.1: load the example database from the file `Example_1_bikes.csv` in the folder `ImportExport` via the `Edit` -> `Import configuration` button from the products panel (left top)
 
 ## RobotTool user guide
 The RobotTool user guide contains a more detailed description of the functionality of the tool, the import and export of configuration and prices, to work with XPaths and how to configure the tool.
